@@ -1,0 +1,46 @@
+.no-data-found-container {
+    background-color: #ffffff;
+    height: 80vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.no-data-found-head {
+    font-family: sans-serif;
+    color: #24013E;
+    margin-top: px;
+    font-size: 40px;
+}
+.no-data-found-img {
+    width: 400px;
+    margin-bottom: 0px;
+}
+.no-data-found-desc {
+    font-family: sans-serif;
+    margin-top: 0px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #64748b;
+}
+.register-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+.register-btn {
+    border-radius: 8px;
+    height: 40px;
+    width: 150px;
+    border-style: solid;
+    border-width: 0px;
+    background-color: #4B0284;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}

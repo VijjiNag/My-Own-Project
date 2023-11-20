@@ -1,12 +1,20 @@
-POST http://localhost:3009/admins/
+POST http://localhost:3009/admin/
 Content-Type: application/json
 
-{   
-    "username":"vijaya",
-    "password":"vijaya@123",
-    "name": "ANEGONDI VIJAYA LAKSHMI"
+{
+    "username" : "vijaya@1",
+    "password" : "vijaya@1234",
+    "name" : "Vijaya Lakshmi"
 }
+
 
 ###
 
-GET http://localhost:3009/admins/
+POST http://localhost:3009/admin_login/
+Content-Type: application/json
+
+{
+    "username" : "vijaya",
+    "password" : "vijaya@123"
+}
+

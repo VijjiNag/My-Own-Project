@@ -1,0 +1,24 @@
+.nav-link-btn {
+    background-color: transparent;
+    border-width: 0px;
+    cursor: pointer;
+    color: #ffffff;
+    margin-right: 30px;
+    font-family: roboto;
+    font-size: 20px;
+}
+
+.nav-link-text {
+    list-style-type: none;
+}
+
+.nav-link-btn-active {
+    background-color: transparent;
+    border-width: 0px;
+    cursor: pointer;
+    list-style-type: none;
+    color: #F3CB06;
+    margin-right: 30px;
+    font-family: roboto;
+    font-size: 20px;
+}
