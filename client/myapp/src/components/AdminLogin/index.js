@@ -57,6 +57,10 @@ const AdminLogin = () => {
 
     }
 
+    const onClickShowPasswordBtn = () => {
+        setShowPassword(prevShowPassword => (!prevShowPassword))
+    }
+
 
     const renderAdminLoginDetails = () => {
         const jwtToken = Cookies.get("jwt_token")
@@ -72,7 +76,7 @@ const AdminLogin = () => {
                     <label htmlFor='password' className='label'>PASSWORD</label>
                     <div className='password-input-container'>
                         <input className='input-password' value={password} type={showPassword ? 'text' : 'password'} id='password' placeholder='Enter Your Password' onChange={onChangePassword} />
-                        <button className='show-password-btn' type='button' >{showPassword ? <FaEye className='show-password-icon' /> : <FaEyeSlash className='show-password-icon' />}</button>
+                        <button className='show-password-btn' type='button' onClick={onClickShowPasswordBtn}>{showPassword ? <FaEye className='show-password-icon' /> : <FaEyeSlash className='show-password-icon' />}</button>
                     </div>
                     <div className='admin-login-btn-container'>
                         <button type='submit' className='login-btn'>Login</button>
