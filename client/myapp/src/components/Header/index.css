@@ -2,10 +2,10 @@
     background-color: #1C1701;
     height: 10vh;
     background-size: cover;
-    background-repeat: no-repeat;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 .title {
     font-family: roboto;

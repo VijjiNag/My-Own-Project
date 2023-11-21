@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookie from 'js-cookie'
 import './index.css'
+import Cookies from "js-cookie";
 
 
 const AdminHeader = () => {
     const navigate = useNavigate()
     const onClickLogoutBtn = () => {
-        Cookie.remove('jwt_token')
+        Cookies.remove('jwt_token')
         navigate("/")
     }
         return (
