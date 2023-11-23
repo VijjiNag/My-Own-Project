@@ -4,6 +4,7 @@ const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {v4 : uuidv4} = require('uuid')
 const cors = require('cors');
 
 const app = express();
@@ -30,10 +31,33 @@ const initializeDBAndServer = async () => {
 };
 initializeDBAndServer();
 
+const authenticateToken = (request, response, next) => {
+  let jwtToken;
+  const authHeader = request.headers["authorization"];
+  if (authHeader !== undefined) {
+    jwtToken = authHeader.split(" ")[1];
+  }
+  if (jwtToken === undefined) {
+    response.status(401);
+    response.send("Invalid JWT Token");
+  } else {
+    jwt.verify(jwtToken, "MY_SECRET_TOKEN", async (error, payload) => {
+      if (error) {
+        response.status(401);
+        response.send("Invalid JWT Token");
+      } else {
+        request.username = payload.username;
+        next();
+      }
+    });
+  }
+};
+
 // Admin Register API
 app.post("/admin/", async (request, response) => {
   const { name, username, password } = request.body;
   const hashedPassword = await bcrypt.hash(password, 10);
+  const adminId = uuidv4()
   const selectUserQuery = `
     SELECT 
       * 
@@ -45,34 +69,30 @@ app.post("/admin/", async (request, response) => {
   if (dbUser === undefined) {
     const createUserQuery = `
      INSERT INTO
-      admin (name, username, password)
+      admin (admin_id, name, username, password)
      VALUES
-      (
+      ('${adminId}',
         '${name}',
        '${username}',
        '${hashedPassword}'
       );`;
-    const dbResponse = await db.run(createUserQuery);
-    const adminId = dbResponse.lastID;
-    response.send(`User created successfully with ${adminId}`);
+    await db.run(createUserQuery);
+    response.send("User created successfully");
   } else {
     response.status(400);
     response.send("User already exists");
   }
 });
 
-app.get("/admin/:adminId/", async (request, response) => {
-  const {username} = request.body
-  
-  console.log(adminId)
+app.get("/admin_details/", authenticateToken, async (request, response) => {
   const getAdminsQuery = `
     SELECT
       *
     FROM
       admin
-    WHERE
-    admin_id = ${adminId}`;
-  const adminsArray = await db.get(getAdminsQuery);
+    ORDER BY
+    username`;
+  const adminsArray = await db.all(getAdminsQuery);
   response.send(adminsArray);
 });
 
@@ -98,3 +118,9 @@ app.post("/admin_login/", async (request, response) => {
     }
   });
   
+  app.get("/admin/profile/", authenticateToken, async (request, response) => {
+    let { username } = request;
+    const selectUserQuery = `SELECT * FROM admin WHERE username = '${username}'`;
+    const userDetails = await db.get(selectUserQuery);
+    response.send(userDetails);
+  });

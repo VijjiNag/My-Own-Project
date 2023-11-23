@@ -48,6 +48,7 @@ const AdminLogin = () => {
         }
         const response = await fetch(url, options)
         const data = await response.json()
+        console.log(response)
         if (response.ok === true) {
             onSubmitSuccess(data.jwt_token)
             console.log(response)

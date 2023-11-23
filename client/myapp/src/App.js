@@ -27,7 +27,7 @@ class App extends Component {
             </Route>
             <Route element={<ProtectedRoute auth={isAuth} />}>
               <Route exact path='/admin' element={<AdminHome />} />
-              <Route exact path='/admin/school_register' element={<SchoolRegisterForm />} />
+              <Route exact path='/admin/:admin_id/school_register' element={<SchoolRegisterForm />} />
               <Route exact path='/admin/reports' element={<AdminReports />} />
               <Route exact path='/admin/change_password' element={<ChangePassword />} />
             </Route>
