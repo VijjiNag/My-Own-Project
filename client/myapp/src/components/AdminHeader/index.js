@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookie from 'js-cookie'
 import './index.css'
 import Cookies from "js-cookie";
 
@@ -14,7 +13,7 @@ const AdminHeader = () => {
         return (
             <nav className="nav-container">
                 <div>
-                    <h1 className="title">Title</h1>
+                    <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo"/>
                 </div>
                 <ul className="nav-links">
                     <Link to="/admin" className="nav-link">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Navigate } from "react-router-dom";
 import Cookies from 'js-cookie'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -31,7 +31,7 @@ const AdminLogin = () => {
         setErrorMsg(errorMsg)
     }
 
-    
+
 
 
     const onSubmitAdminForm = async event => {
@@ -54,7 +54,6 @@ const AdminLogin = () => {
         } else {
             onSubmitFailure(data.error_msg)
         }
-
     }
 
     const onClickShowPasswordBtn = () => {
@@ -69,7 +68,10 @@ const AdminLogin = () => {
         }
         return (
             <div className='admin-login-form-container'>
-                <h1 className='admin-login-head'>Admin Login</h1>
+                <div className='login-form-head-container'>
+                    <img className='login-logo' src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt='logo' />
+                    <h1 className='admin-login-head'>Admin Login</h1>
+                </div>
                 <form className='login-form-container' onSubmit={onSubmitAdminForm}>
                     <label htmlFor='username' className='label'>USERNAME</label>
                     <input className='input' value={username} type='text' id='username' placeholder='Enter Your Username' onChange={onChangeUsername} />
@@ -93,7 +95,7 @@ const AdminLogin = () => {
 
             <div className='admin-login-bg-container'>
                 <div className='admin-login-container'>
-                    <img className='admin-img' src='https://www.mrisoftware.com/uk/wp-content/uploads/2022/02/XWMS_Lease-Admin-1024x812.png' alt='admin-login' />
+                    <img className='admin-img' src='https://1stop.ai/images/login-bg.png' alt='admin-login' />
                     <div className='login-details-container'>{renderAdminLoginDetails()}</div>
                 </div>
             </div>

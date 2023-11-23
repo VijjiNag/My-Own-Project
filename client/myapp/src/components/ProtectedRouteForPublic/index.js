@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const ProtectedRouteForPublic = ({ auth }) => {

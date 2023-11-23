@@ -2,9 +2,9 @@ POST http://localhost:3009/admin/
 Content-Type: application/json
 
 {
-    "username" : "vijaya@1",
-    "password" : "vijaya@1234",
-    "name" : "Vijaya Lakshmi"
+    "username" : "nagendra@004",
+    "password" : "nagendra@123",
+    "name" : "ANEGONDI NAGENDRA BABU"
 }
 
 
@@ -14,7 +14,14 @@ POST http://localhost:3009/admin_login/
 Content-Type: application/json
 
 {
-    "username" : "vijaya",
-    "password" : "vijaya@123"
+    "username" : "nagendra@001",
+    "password" : "nagendra@123"
 }
+
+###
+
+GET http://localhost:3009/admin/1/
+Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAwMSIsImlhdCI6MTcwMDY2ODM5N30.Uk1v0c1puVZKi5wiyRJ8y3-dXWt-6t_NBe9HEy5_f24`
+
+
 

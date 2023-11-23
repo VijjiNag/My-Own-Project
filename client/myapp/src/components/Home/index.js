@@ -3,9 +3,6 @@ import Header from '../Header'
 import './index.css'
 
 class Home extends Component {
-    componentDidMount() {
-        document.title = "EduTech"
-    }
     render() {
         return (
             <div>

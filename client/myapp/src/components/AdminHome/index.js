@@ -1,16 +1,14 @@
-import React, {Component} from "react";
+import React from "react";
 import AdminHeader from "../AdminHeader";
 import './index.css'
 
-class AdminHome extends Component {
-    render() {
+const AdminHome = () => {
         return (
             <>
                 <AdminHeader/>
                 <h1>Home</h1>
             </>
         )
-    }
 }
 
 export default AdminHome

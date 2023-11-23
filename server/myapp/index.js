@@ -32,7 +32,7 @@ initializeDBAndServer();
 
 // Admin Register API
 app.post("/admin/", async (request, response) => {
-  const { username, password, name } = request.body;
+  const { name, username, password } = request.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   const selectUserQuery = `
     SELECT 
@@ -45,19 +45,35 @@ app.post("/admin/", async (request, response) => {
   if (dbUser === undefined) {
     const createUserQuery = `
      INSERT INTO
-      admin (username, password, name)
+      admin (name, username, password)
      VALUES
       (
+        '${name}',
        '${username}',
-       '${hashedPassword}',
-       '${name}'
+       '${hashedPassword}'
       );`;
-    await db.run(createUserQuery);
-    response.send("User created successfully");
+    const dbResponse = await db.run(createUserQuery);
+    const adminId = dbResponse.lastID;
+    response.send(`User created successfully with ${adminId}`);
   } else {
     response.status(400);
     response.send("User already exists");
   }
+});
+
+app.get("/admin/:adminId/", async (request, response) => {
+  const {username} = request.body
+  
+  console.log(adminId)
+  const getAdminsQuery = `
+    SELECT
+      *
+    FROM
+      admin
+    WHERE
+    admin_id = ${adminId}`;
+  const adminsArray = await db.get(getAdminsQuery);
+  response.send(adminsArray);
 });
 
 app.post("/admin_login/", async (request, response) => {

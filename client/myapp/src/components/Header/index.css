@@ -1,11 +1,13 @@
 .nav-container {
-    background-color: #1C1701;
+    background-color: #fac814;
     height: 10vh;
     background-size: cover;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .title {
     font-family: roboto;
@@ -21,11 +23,15 @@
     text-decoration: none;
 }
 .nav-link-text {
-    color: #ffffff;
+    color: #650000;
     margin-right: 50px;
     font-family: roboto;
     font-size: 20px;
+    font-weight: 700;
 }
 .nav-link-text:hover {
-    color: #F5D01A;
+    color: #042AB4;
+}
+.logo {
+    width: 75px;
 }

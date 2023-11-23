@@ -9,7 +9,7 @@ class Header extends Component {
         return (
             <nav className="nav-container">
                 <div>
-                    <h1 className="title">Title</h1>
+                    <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo"/>
                 </div>
                 <ul className="nav-links">
                     <Link to="/" className="nav-link">
