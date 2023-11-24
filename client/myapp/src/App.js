@@ -8,6 +8,7 @@ import AdminCollegeReports from './components/AdminCollegeReports';
 import AdminLogin from './components/AdminLogin';
 import SchoolLogin from './components/SchoolLogin';
 import AdminHome from './components/AdminHome';
+import CollegeLogin from './components/CollegeLogin';
 import ChangePassword from './components/ChangePassword';
 import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedRouteForPublic from './components/ProtectedRouteForPublic';
@@ -26,6 +27,7 @@ class App extends Component {
               <Route exact path='/' element={<Home />} />
               <Route exact path='/admin_login' element={<AdminLogin />} />
               <Route exact path='/school_login' element={<SchoolLogin />} />
+              <Route exact path='/college_login' element={<CollegeLogin />} />
             </Route>
             <Route element={<ProtectedRoute auth={isAuth} />}>
               <Route exact path='/admin' element={<AdminHome />} />

@@ -1,30 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import './index.css'
 
 
-class Header extends Component {
+const Header = () => {
 
-    render() {
         return (
-            <nav className="nav-container">
+            <>
+            <nav className="nav-container-header">
                 <div>
-                    <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo"/>
+                    <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo" />
                 </div>
-                <ul className="nav-links">
-                    <Link to="/" className="nav-link">
-                        <li className="nav-link-text">Home</li>
-                    </Link>
-                    <Link to="/admin_login" className="nav-link">
-                        <li className="nav-link-text">Admin Login</li>
-                    </Link>
-                    <Link to="/school_login" className="nav-link">
-                        <li className="nav-link-text">School Login</li>
-                    </Link>
-                </ul>
+                <div className="nav-links">
+                    <div class="dropdown">
+                        <Link to="/" className="nav-link">
+                            <button class="dropbtn">Home</button>
+                        </Link>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">Login</button>
+                        <div class="dropdown-content">
+                            <Link to="/admin_login">Admin</Link>
+                            <Link to="/school_login">School</Link>
+                            <Link to="/college_login">College</Link>
+                        </div>
+                    </div>
+                </div>
             </nav>
+        </>
         )
-    }
 }
 
 export default Header

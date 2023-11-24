@@ -1,0 +1,125 @@
+.admin-login-bg-container {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 87vh;
+    width: 100%;
+    padding-bottom: 0px;
+    background-size: cover;
+}
+.admin-img {
+    width: 50%;
+}
+.admin-login-form-container {
+    background-color: #ffffff;
+    background-size: cover;
+    border-radius: 12px;
+    box-shadow: 0px 8px 40px rgba(7, 7, 7, 0.08);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+.admin-login-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.login-details-container {
+    width: 30%;
+}
+.admin-login-head {
+    font-family: sans-serif;
+    text-align: center;
+    color: #011063;
+}
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+}
+.label {
+    font-family: sans-serif;
+    margin-top: 30px;
+    font-weight: bold;
+    color: #013e66;
+    margin-bottom: 15px;
+}
+.input {
+    font-family: sans-serif;
+    border-radius: 8px;
+    height: 45px;
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 15px;
+    outline: none;
+    border-color: #013e66;
+    background-color: #D5EDF8;
+    font-size: 20px;
+}
+.input-password {
+    font-family: sans-serif;
+    border-radius: 8px;
+    height: 45px;
+    width: 100%;
+    border-width: 0px;
+    padding-left: 15px;
+    outline: none;
+    background-color: #D5EDF8;
+    font-size: 20px;
+}
+.admin-login-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.login-btn {
+    background-color: #012036;
+    border-radius: 8px;
+    color: #ffffff;
+    height: 50px;
+    width: 130px;
+    border-width: 0px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.login-logo {
+    width: 80px;
+    height: 70px;
+}
+
+.error-msg {
+    font-family: sans-serif;
+    color: #d90416;
+    font-weight: 700;
+}
+
+.password-input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #D5EDF8;
+    border-color: #013e66;
+    margin-bottom: 30px;
+    width: 100%;
+}
+.show-password-btn {
+    background-color: transparent;
+    border-radius: 8px;
+    border-width: 0px;
+    cursor: pointer;
+    outline: none;
+}
+.show-password-icon {
+    font-size: 20px;
+}
+.login-form-head-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
