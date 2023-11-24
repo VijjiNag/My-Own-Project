@@ -33,28 +33,44 @@ const AdminHeader = () => {
         navigate("/")
     }
     return (
-        <nav className="nav-container">
-            <div>
-                <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo" />
-            </div>
-            <ul className="nav-links">
-                <Link to="/admin" className="nav-link">
-                    <li className="nav-link-text">Home</li>
-                </Link>
-                <Link to={`/admin/${getAdminId}/school_register`} className="nav-link">
-                    <li className="nav-link-text">School Registration</li>
-                </Link>
-                <Link to="/admin/reports" className="nav-link">
-                    <li className="nav-link-text">Reports</li>
-                </Link>
-                <Link to="/admin/change_password" className="nav-link">
-                    <li className="nav-link-text">Change Password</li>
-                </Link>
-                <li className="nav-link-text">
-                    <button className="logout-btn" onClick={onClickLogoutBtn}>Logout</button>
-                </li>
-            </ul>
-        </nav>
+        <>
+            <nav className="nav-container">
+                <div>
+                    <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo" />
+                </div>
+                <div className="nav-links">
+                    <div class="dropdown">
+                        <Link to="/admin" className="nav-link">
+                            <button class="dropbtn">Home</button>
+                        </Link>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">Register</button>
+                        <div class="dropdown-content">
+                            <Link to={`/admin/${getAdminId}/register/school`}>School</Link>
+                            <Link to={`/admin/${getAdminId}/register/college`}>College</Link>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">Reports</button>
+                        <div class="dropdown-content">
+                            <Link to={`/admin/${getAdminId}/reports/school`}>School</Link>
+                            <Link to={`/admin/${getAdminId}/reports/college`}>College</Link>
+                            <a href="#">Link 3</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <Link to={`/admin/${getAdminId}/change_password`}>
+                            <button class="dropbtn">Change Password</button>
+                        </Link>
+                    </div>
+                    <div class="dropdown">
+                            <button class="dropbtn" onClick={onClickLogoutBtn}>Logout</button>
+                    </div>
+                </div>
+            </nav>
+        </>
     )
 }
 
