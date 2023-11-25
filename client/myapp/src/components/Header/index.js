@@ -19,7 +19,7 @@ const Header = () => {
                     </div>
                     <div class="dropdown">
                         <button class="dropbtn">Login</button>
-                        <div class="dropdown-content">
+                        <div class="dropdown-content-header">
                             <Link to="/admin_login">Admin</Link>
                             <Link to="/school_login">School</Link>
                             <Link to="/college_login">College</Link>
