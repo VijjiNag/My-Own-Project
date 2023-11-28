@@ -2,9 +2,9 @@ POST http://localhost:3009/admin/
 Content-Type: application/json
 
 {
-    "username" : "vijaya@01",
-    "password" : "vijaya@123",
-    "name" : "ANEGONDI VIJAYA LAKSHMI"
+    "username" : "nagendra@02",
+    "password" : "nagendra@123",
+    "name" : "ANEGONDI NAGENDRA BABU"
 }
 
 
@@ -14,8 +14,8 @@ POST http://localhost:3009/admin_login/
 Content-Type: application/json
 
 {
-    "username" : "vijaya@004",
-    "password" : "vijaya@123"
+    "username" : "nagendra@01",
+    "password" : "nagendra@123"
 }
 
 ###
@@ -27,3 +27,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ
 
 GET http://localhost:3009/admin/profile/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAwMyIsImlhdCI6MTcwMDc2OTY1N30.otunFWiRFo-R9kfXh8srwxgFfSaTAZVHLfYncj4FQg0
+
+###
+
+POST http://localhost:3009/schools/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAxIiwiaWF0IjoxNzAxMTc3NzcwfQ.CZvkhpPNCQRn0Df1-X2B0B3tfPteRg3IV7KNc-rpmHs
+
+{
+    "school_name" : "GAUTAM HIGH SCHOOL",
+    "username" : "gautamhighschool@gmail.com",
+    "password" : "gautam@123",
+    "admin_id" : "007dc5db-ab72-428b-8857-9621492b659f"
+}

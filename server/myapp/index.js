@@ -57,7 +57,7 @@ const authenticateToken = (request, response, next) => {
 app.post("/admin/", async (request, response) => {
   const { name, username, password } = request.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const adminId = uuidv4()
+  const id = uuidv4()
   const selectUserQuery = `
     SELECT 
       * 
@@ -69,9 +69,9 @@ app.post("/admin/", async (request, response) => {
   if (dbUser === undefined) {
     const createUserQuery = `
      INSERT INTO
-      admin (admin_id, name, username, password)
+      admin (id, name, username, password)
      VALUES
-      ('${adminId}',
+      ('${id}',
         '${name}',
        '${username}',
        '${hashedPassword}'
@@ -84,6 +84,7 @@ app.post("/admin/", async (request, response) => {
   }
 });
 
+
 app.get("/admin_details/", authenticateToken, async (request, response) => {
   const getAdminsQuery = `
     SELECT
@@ -95,6 +96,8 @@ app.get("/admin_details/", authenticateToken, async (request, response) => {
   const adminsArray = await db.all(getAdminsQuery);
   response.send(adminsArray);
 });
+
+//Admin Login
 
 app.post("/admin_login/", async (request, response) => {
     const {username, password} = request.body
@@ -117,6 +120,8 @@ app.post("/admin_login/", async (request, response) => {
       }
     }
   });
+
+  //Admin Profile
   
   app.get("/admin/profile/", authenticateToken, async (request, response) => {
     let { username } = request;
@@ -124,3 +129,35 @@ app.post("/admin_login/", async (request, response) => {
     const userDetails = await db.get(selectUserQuery);
     response.send(userDetails);
   });
+
+  app.post("/schools/", authenticateToken, async (request, response) => {
+    const schoolDetails = request.body
+    const {schoolName, username, password, adminId} = schoolDetails
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const id = uuidv4()
+    const selectUserQuery = `
+    SELECT 
+      * 
+    FROM 
+      school 
+    WHERE 
+      username = '${username}';`;
+  const dbUser = await db.get(selectUserQuery);
+  if (dbUser === undefined) {
+    const createSchoolQuery = `
+     INSERT INTO
+      school (id, school_name, username, password, admin_id)
+     VALUES
+      ('${id}',
+        '${schoolName}',
+       '${username}',
+       '${hashedPassword}',
+       '${adminId}'
+      );`;
+    await db.run(createSchoolQuery);
+    response.send("School created successfully");
+  } else {
+    response.status(400);
+    response.send("School already exists");
+  }
+})
