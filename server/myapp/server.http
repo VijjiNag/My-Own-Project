@@ -14,7 +14,7 @@ POST http://localhost:3009/admin_login/
 Content-Type: application/json
 
 {
-    "username" : "nagendra@01",
+    "username" : "nagendra@02",
     "password" : "nagendra@123"
 }
 
@@ -26,17 +26,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ
 ###
 
 GET http://localhost:3009/admin/profile/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAwMyIsImlhdCI6MTcwMDc2OTY1N30.otunFWiRFo-R9kfXh8srwxgFfSaTAZVHLfYncj4FQg0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAyIiwiaWF0IjoxNzAxMTg5NTUzfQ.R3Isy2YDtD-ChhrBW7Q_11HZN7pijxcS2wOiYA2U1eo
 
 ###
 
 POST http://localhost:3009/schools/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAxIiwiaWF0IjoxNzAxMTc3NzcwfQ.CZvkhpPNCQRn0Df1-X2B0B3tfPteRg3IV7KNc-rpmHs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAyIiwiaWF0IjoxNzAxMTgyNDY4fQ.Q1D6mQATUUCL_kw8mJL5y0Rxq7ePwwN7daHbkQdEfkk
 
 {
-    "school_name" : "GAUTAM HIGH SCHOOL",
-    "username" : "gautamhighschool@gmail.com",
+    "schoolName" : "BHEERAM SREEDHAR REDDY INTERNATIONAL SCHOOL",
+    "username" : "sris@gmail.com",
     "password" : "gautam@123",
-    "admin_id" : "007dc5db-ab72-428b-8857-9621492b659f"
+    "adminId" : "fc81af72-7a15-414e-882e-600d00c67641"
 }
+
+###
+
+GET http://localhost:3009/admin/fc81af72-7a15-414e-882e-600d00c67641/schools/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAyIiwiaWF0IjoxNzAxMTg5NTUzfQ.R3Isy2YDtD-ChhrBW7Q_11HZN7pijxcS2wOiYA2U1eo

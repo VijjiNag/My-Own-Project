@@ -161,3 +161,16 @@ app.post("/admin_login/", async (request, response) => {
     response.send("School already exists");
   }
 })
+
+app.get("/admin/:adminId/schools/", authenticateToken, async (request, response) => {
+  const { adminId } = request.params;
+  const getAdminSchoolsQuery = `
+    SELECT
+     *
+    FROM
+     school
+    WHERE
+      admin_id = ${adminId};`;
+  const schoolsArray = await db.all(getAdminSchoolsQuery);
+  response.send(schoolsArray);
+});
