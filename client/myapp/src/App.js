@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, Component, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import Home from './components/Home'
@@ -15,8 +15,7 @@ import ProtectedRouteForPublic from './components/ProtectedRouteForPublic';
 import CollegeRegistrationForm from './components/CollegeRegistrationForm';
 import './App.css';
 
-class App extends Component {
-  render() {
+const App = () => {
     const jwtToken = Cookies.get("jwt_token")
     const isAuth = jwtToken !== undefined
     return (
@@ -41,8 +40,6 @@ class App extends Component {
         </Fragment>
       </Router>
     )
-  }
-
 }
 
 export default App;

@@ -169,8 +169,8 @@ app.get("/admin/:adminId/schools/", authenticateToken, async (request, response)
      *
     FROM
      school
-    WHERE
-      admin_id = ${adminId};`;
+     WHERE
+     admin_id = '${adminId}';`;
   const schoolsArray = await db.all(getAdminSchoolsQuery);
-  response.send(schoolsArray);
+  response.send({schoolsList : schoolsArray});
 });

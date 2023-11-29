@@ -12,14 +12,14 @@ const Header = () => {
                     <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo" />
                 </div>
                 <div className="nav-links">
-                    <div class="dropdown">
+                    <div className="dropdown">
                         <Link to="/" className="nav-link">
-                            <button class="dropbtn">Home</button>
+                            <button className="dropbtn">Home</button>
                         </Link>
                     </div>
-                    <div class="dropdown">
-                        <button class="dropbtn">Login</button>
-                        <div class="dropdown-content-header">
+                    <div className="dropdown">
+                        <button className="dropbtn">Login</button>
+                        <div className="dropdown-content-header">
                             <Link to="/admin_login">Admin</Link>
                             <Link to="/school_login">School</Link>
                             <Link to="/college_login">College</Link>

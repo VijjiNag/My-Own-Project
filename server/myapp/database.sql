@@ -1,1 +1,1 @@
-SELECT * FROM school NATURAL JOIN admin WHERE school.admin_id = admin.id;
+DELETE FROM school;

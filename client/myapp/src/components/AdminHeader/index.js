@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AdminContext from "../../context/AdminContext";
 import './index.css'
 import Cookies from "js-cookie";
 
@@ -21,12 +22,13 @@ const AdminHeader = () => {
             const response = await fetch(url, options)
             if (response.ok) {
                 const data = await response.json()
-                setAdminId(() => data.admin_id)
+                setAdminId(() => data.id)
                 setAdminName(() => data.name)
             }
         }
         getProfile()
-    }, [])
+    }, [], [])
+
 
     const onClickLogoutBtn = () => {
         Cookies.remove('jwt_token')
@@ -39,34 +41,32 @@ const AdminHeader = () => {
                     <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo" />
                 </div>
                 <div className="nav-links">
-                    <div class="dropdown">
+                    <div className="dropdown">
                         <Link to="/admin" className="nav-link">
-                            <button class="dropbtn">Home</button>
+                            <button className="dropbtn">Home</button>
                         </Link>
                     </div>
-                    <div class="dropdown">
-                        <button class="dropbtn">Register</button>
-                        <div class="dropdown-content">
+                    <div className="dropdown">
+                        <button className="dropbtn">Register</button>
+                        <div className="dropdown-content">
                             <Link to={`/admin/${getAdminId}/register/school`}>School</Link>
                             <Link to={`/admin/${getAdminId}/register/college`}>College</Link>
-                            <a href="#">Link 3</a>
                         </div>
                     </div>
-                    <div class="dropdown">
-                        <button class="dropbtn">Reports</button>
-                        <div class="dropdown-content">
+                    <div className="dropdown">
+                        <button className="dropbtn">Reports</button>
+                        <div className="dropdown-content">
                             <Link to={`/admin/${getAdminId}/reports/school`}>School</Link>
                             <Link to={`/admin/${getAdminId}/reports/college`}>College</Link>
-                            <a href="#">Link 3</a>
                         </div>
                     </div>
-                    <div class="dropdown">
+                    <div className="dropdown">
                         <Link to={`/admin/${getAdminId}/change_password`}>
-                            <button class="dropbtn">Change Password</button>
+                            <button className="dropbtn">Change Password</button>
                         </Link>
                     </div>
-                    <div class="dropdown">
-                            <button class="dropbtn" onClick={onClickLogoutBtn}>Logout</button>
+                    <div className="dropdown">
+                            <button className="dropbtn" onClick={onClickLogoutBtn}>Logout</button>
                     </div>
                 </div>
             </nav>

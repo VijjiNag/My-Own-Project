@@ -26,22 +26,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ
 ###
 
 GET http://localhost:3009/admin/profile/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAyIiwiaWF0IjoxNzAxMTg5NTUzfQ.R3Isy2YDtD-ChhrBW7Q_11HZN7pijxcS2wOiYA2U1eo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAxIiwiaWF0IjoxNzAxMjM3OTE0fQ.tGYrjTVc-TgKahnGQ3FnUE9-KyBa2rJzLYkvX5dAyC4
 
 ###
 
 POST http://localhost:3009/schools/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAyIiwiaWF0IjoxNzAxMTgyNDY4fQ.Q1D6mQATUUCL_kw8mJL5y0Rxq7ePwwN7daHbkQdEfkk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAyIiwiaWF0IjoxNzAxMjQwMTE3fQ.p5pbUKIUAM1yusg3o6zQPfqK1lmGn6fdCcfb7WeDNhE
+
 
 {
     "schoolName" : "BHEERAM SREEDHAR REDDY INTERNATIONAL SCHOOL",
     "username" : "sris@gmail.com",
-    "password" : "gautam@123",
+    "password" : "sris@123",
     "adminId" : "fc81af72-7a15-414e-882e-600d00c67641"
 }
 
 ###
 
 GET http://localhost:3009/admin/fc81af72-7a15-414e-882e-600d00c67641/schools/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAyIiwiaWF0IjoxNzAxMTg5NTUzfQ.R3Isy2YDtD-ChhrBW7Q_11HZN7pijxcS2wOiYA2U1eo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAxIiwiaWF0IjoxNzAxMjM4MDcxfQ.2xabnICeqNKnLTZ4-MRQKygi-JoW3IAg1tkLYWFBhGQ
