@@ -13,6 +13,7 @@ import ChangePassword from './components/ChangePassword';
 import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedRouteForPublic from './components/ProtectedRouteForPublic';
 import CollegeRegistrationForm from './components/CollegeRegistrationForm';
+import GetStarted from './components/GetStarted';
 import './App.css';
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
               <Route exact path='/admin_login' element={<AdminLogin />} />
               <Route exact path='/school_login' element={<SchoolLogin />} />
               <Route exact path='/college_login' element={<CollegeLogin />} />
+              <Route exact path='/get_started' element={<GetStarted/>}/>
             </Route>
             <Route element={<ProtectedRoute auth={isAuth} />}>
               <Route exact path='/admin' element={<AdminHome />} />

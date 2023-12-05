@@ -1,0 +1,67 @@
+.home-banner-bg-container {
+    background-image: url("https://offices.austincc.edu/finance-and-administration/wp-content/uploads/sites/31/2023/10/AdobeStock_575311679-web-1-1140x436.jpg");
+    background-size: cover;
+    height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.banner-main-head {
+    font-family: sans-serif;
+    color: #040889;
+    font-weight: bold;
+    font-size: 40px;
+}
+.banner-sub-head {
+    font-family: sans-serif;
+    color: #890F04;
+    font-weight: bold;
+    font-size: 40px;
+}
+.get-started-btn-link {
+    text-decoration: none;
+    color: #000000;
+}
+.get-started-btn {
+    border-radius: 8px;
+    height: 35px;
+    width: 130px;
+    background-color: #fac814;
+    border-width: 0px;
+    color: #021169;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+}
+.home-card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.home-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 8px 40px rgba(7, 7, 7, 0.08);
+    padding: 15px;
+    margin-right: 30px;
+    height: 20vh;
+    width: 30%;
+}
+.home-card-head-container {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #012257;
+}
+.home-card-desc {
+    font-family: sans-serif;
+    font-size: 15px;
+    color: #7d7d7d;
+}
