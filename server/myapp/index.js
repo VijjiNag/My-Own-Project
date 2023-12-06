@@ -53,6 +53,56 @@ const authenticateToken = (request, response, next) => {
   }
 };
 
+//User Query Registration
+
+app.post("/user_query/", async (request, response) => {
+  const { organizationName, correspondentName, email, contactNumber, address } = request.body;
+  const id = uuidv4()
+  const selectUserQuery = `
+    SELECT 
+      * 
+    FROM 
+      user_query 
+    WHERE 
+      email = '${email}';`;
+  const dbUser = await db.get(selectUserQuery);
+  if (dbUser === undefined) {
+    const createUserQuery = `
+     INSERT INTO
+      user_query (id, organization_name, correspondent_name, email, contact_number, address)
+     VALUES
+      ('${id}',
+        '${organizationName}',
+        '${correspondentName}',
+       '${email}',
+       '${contactNumber}',
+       '${address}'
+      );`;
+    await db.run(createUserQuery);
+    response.send({success_msg:`Congratulations ${correspondentName} !! You have registered successfully with us. Our team will contact you as soon as possible. Thank you for your interest.`});
+  } else {
+    response.status(400);
+    response.send({error_msg:"This email already exists"});
+  }
+});
+
+//User query details
+
+app.get("/user_query/", authenticateToken, async (request, response) => {
+  const {offset, limit, search = ""} = request.query
+  const getUserQuery = `
+    SELECT
+      *
+    FROM
+      user_query
+    WHERE
+    organization_name LIKE '%${search}%'
+    LIMIT ${limit} OFFSET ${offset}`;
+  const userQueryArray = await db.all(getUserQuery);
+  response.send({queries : userQueryArray});
+});
+
+
 // Admin Register API
 app.post("/admin/", async (request, response) => {
   const { name, username, password } = request.body;
@@ -82,19 +132,6 @@ app.post("/admin/", async (request, response) => {
     response.status(400);
     response.send("User already exists");
   }
-});
-
-
-app.get("/admin_details/", authenticateToken, async (request, response) => {
-  const getAdminsQuery = `
-    SELECT
-      *
-    FROM
-      admin
-    ORDER BY
-    username`;
-  const adminsArray = await db.all(getAdminsQuery);
-  response.send(adminsArray);
 });
 
 //Admin Login
@@ -129,6 +166,8 @@ app.post("/admin_login/", async (request, response) => {
     const userDetails = await db.get(selectUserQuery);
     response.send(userDetails);
   });
+
+  //Register School
 
   app.post("/schools/", authenticateToken, async (request, response) => {
     const schoolDetails = request.body

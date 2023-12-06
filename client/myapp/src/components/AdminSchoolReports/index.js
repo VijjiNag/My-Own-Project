@@ -6,7 +6,6 @@ import './index.css'
 
 const AdminSchoolReports = () => {
     const [getSchools, setSchools] = useState([])
-    console.log(getSchools)
     const params = useParams()
     const adminId = params.admin_id
     useEffect(() => {

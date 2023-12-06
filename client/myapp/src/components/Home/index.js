@@ -12,11 +12,12 @@ class Home extends Component {
                     <div className='Home-banner-content-container'>
                         <h1 className='banner-main-head'>TAKE THE FIRST STEP</h1>
                         <h1 className='banner-sub-head'>TO MANAGE YOUR ORGANIZATION WITH US</h1>
-                        <Link className='get-started-btn-link' to="/get_started">
+                        <Link className='get-started-btn-link' to="/user_query">
                             <button type='button' className='get-started-btn'>Get Started</button>
                         </Link>
                     </div>
                 </div>
+                <h1 className='home-features-head'>Our Features</h1>
                 <div className='home-card-container'>
                     <div className='home-card'>
                         <div className='home-card-head-container'>
@@ -35,6 +36,12 @@ class Home extends Component {
                             <p>Accounts Management</p>
                         </div>
                         <p className='home-card-desc'>You can manage students fee, get fee reports of students, give TC and get TC reports of the students and print receipt of fee to the students.</p>
+                    </div>
+                    <div className='home-card'>
+                        <div className='home-card-head-container'>
+                            <p>Support</p>
+                        </div>
+                        <p className='home-card-desc'>We will give 24/7 technical support and other queries. You can contact us through chatting or call.</p>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,24 @@
+.user-query-list-item {
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+ul li:nth-of-type(even) {
+    background-color: #D6EEEE;
+}
+.school-name-data {
+    width: 350px;
+}
+.correspondent-name-data {
+    width: 250px;
+}
+.email-data {
+    width: 250px;
+}
+.contact-number-data {
+    width: 200px;
+}
+.address-data {
+    width: 300px;
+}

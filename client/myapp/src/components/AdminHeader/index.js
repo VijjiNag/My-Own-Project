@@ -58,6 +58,7 @@ const AdminHeader = () => {
                         <div className="dropdown-content">
                             <Link to={`/admin/${getAdminId}/reports/school`}>School</Link>
                             <Link to={`/admin/${getAdminId}/reports/college`}>College</Link>
+                            <Link to={`/admin/${getAdminId}/reports/user_query`}>User Query</Link>
                         </div>
                     </div>
                     <div className="dropdown">

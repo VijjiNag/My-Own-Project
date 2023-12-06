@@ -1,0 +1,107 @@
+.user-query-reports-container {
+    background-color: #ffffff;
+    height: 85vh;
+    background-size: cover;
+}
+
+.user-query-reports-head {
+    font-family: sans-serif;
+    text-align: center;
+    color: #72024D;
+    font-weight: bold;
+}
+
+.user-query-reports-table-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.page-btn {
+    background-color: transparent;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.page-icon {
+    font-size: 25px;
+    color: #ffa412;
+}
+
+.page-numbers-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.user-query-reports-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.user-query-list-container {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.total-pages {
+    font-family: sans-serif;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #72024D;
+}
+.loader-container {
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.user-query-table-head-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #72024D;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.school-name {
+    width: 350px;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+.correspondent-name {
+    width: 250px;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+.email {
+    width: 250px;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+.contact-number {
+    width: 200px;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+.address {
+    width: 300px;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-weight: 700;
+}

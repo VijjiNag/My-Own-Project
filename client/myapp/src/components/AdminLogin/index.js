@@ -92,7 +92,6 @@ const AdminLogin = () => {
     return (
         <>
             <Header />
-
             <div className='admin-login-bg-container'>
                 <div className='admin-login-container'>
                     <img className='admin-img' src='https://1stop.ai/images/login-bg.png' alt='admin-login' />

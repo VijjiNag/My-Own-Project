@@ -14,6 +14,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedRouteForPublic from './components/ProtectedRouteForPublic';
 import CollegeRegistrationForm from './components/CollegeRegistrationForm';
 import GetStarted from './components/GetStarted';
+import AdminUserQueryReports from './components/AdminUserQueryReports';
 import './App.css';
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
               <Route exact path='/admin_login' element={<AdminLogin />} />
               <Route exact path='/school_login' element={<SchoolLogin />} />
               <Route exact path='/college_login' element={<CollegeLogin />} />
-              <Route exact path='/get_started' element={<GetStarted/>}/>
+              <Route exact path='/user_query' element={<GetStarted/>}/>
             </Route>
             <Route element={<ProtectedRoute auth={isAuth} />}>
               <Route exact path='/admin' element={<AdminHome />} />
@@ -36,6 +37,7 @@ const App = () => {
               <Route exact path='/admin/:admin_id/register/college' element={<CollegeRegistrationForm/>} />
               <Route exact path='/admin/:admin_id/reports/school' element={<AdminSchoolReports />} />
               <Route exact path='/admin/:admin_id/reports/college' element={<AdminCollegeReports />} />
+              <Route exact path='/admin/:admin_id/reports/user_query' element={<AdminUserQueryReports />} />
               <Route exact path='/admin/:admin_id/change_password' element={<ChangePassword />} />
             </Route>
           </Routes>
