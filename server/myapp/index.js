@@ -1,4 +1,5 @@
 const express = require("express");
+const date = require("date-fns")
 const path = require("path");
 const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
@@ -10,6 +11,14 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const datetime = new Date();
+const newDate = ("0" + datetime.getDate()).slice(-2);
+const newMonth = ("0" + (datetime.getMonth() + 1)).slice(-2)
+const newYear = datetime.getFullYear()
+const fullDate = newDate + "-" + newMonth + "-" + newYear
+console.log(fullDate)
+
 
 const dbPath = path.join(__dirname, "database.db");
 
