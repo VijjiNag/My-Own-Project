@@ -4,7 +4,6 @@ import './index.css'
 const AdminUserQueryItem = (props) => {
     const { userQuery } = props
     const { organizationName, correspondentName, email, contactNumber, address } = userQuery
-    console.log(userQuery)
     return (
         <>
             <li className='user-query-list-item'>

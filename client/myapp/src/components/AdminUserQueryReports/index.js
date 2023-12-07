@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import Cookies from "js-cookie";
 import { RotatingLines } from 'react-loader-spinner';
 import {
     IoIosArrowDropleftCircle,
     IoIosArrowDroprightCircle,
 } from 'react-icons/io'
+import { IoSearchSharp } from "react-icons/io5";
 import AdminHeader from "../AdminHeader";
 import AdminUserQueryItem from "../AdminUserQueryItem";
 import './index.css'
@@ -16,91 +17,115 @@ const apiStatusConstants = {
     inProgress: 'IN_PROGRESS',
 }
 
-const AdminUserQueryReports = () => {
-    const [userQueryDetails, setUserQueryDetails] = useState([])
-    const [activePageNumber, setActivePageNumber] = useState(1)
-    const [apiStatus, setApiStatus] = useState(apiStatusConstants.initial)
-    const [activePage, setActivePage] = useState(1)
-    const [limit, setLimit] = useState(10)
-    const [searchInput, setSearchInput] = useState("")
-    const numberOfUserQueries = userQueryDetails.length
-    const totalPages = Math.ceil(numberOfUserQueries / limit)
-    const isEmpty = numberOfUserQueries === 0
-    useEffect(() => {
-        const getUserQueryDetails = async () => {
-            const jwtToken = Cookies.get("jwt_token")
-            setApiStatus(() => apiStatusConstants.inProgress)
-            const offset = (activePage - 1) * limit
-            const url = `http://localhost:3009/user_query?offset=${offset}&limit=${limit}&search=${searchInput}`
-            const options = {
-                headers: {
-                    Authorization: `Bearer ${jwtToken}`,
-                },
-                method: 'GET',
-            }
-            const response = await fetch(url, options)
-            if (response.ok) {
-                const data = await response.json()
-                const updatedData = data.queries.map(eachList => ({
-                    id: eachList.id,
-                    organizationName: eachList.organization_name,
-                    correspondentName: eachList.correspondent_name,
-                    email: eachList.email,
-                    contactNumber: eachList.contact_number,
-                    address: eachList.address
-                }))
-                setUserQueryDetails(() => updatedData)
-                setApiStatus(() => apiStatusConstants.success)
-            } else {
-                setApiStatus(() => apiStatusConstants.failure)
-            }
+class AdminUserQueryReports extends Component {
+    state = {
+        userQueryDetails: [],
+        activePageNumber: 1,
+        limit: 10,
+        activePage: 1,
+        totalPages: 3,
+        searchInput: "",
+        apiStatus: apiStatusConstants.initial,
+    }
 
+    componentDidMount() {
+        this.getUserQueryDetails()
+    }
+
+    getUserQueryDetails = async () => {
+        const { activePage, limit, searchInput } = this.state
+        this.setState({
+            apiStatus: apiStatusConstants.inProgress
+        })
+        const jwtToken = Cookies.get("jwt_token")
+        const offset = (activePage - 1) * limit
+        const url = `http://localhost:3009/user_query?offset=${offset}&limit=${limit}&search=${searchInput}`
+        const options = {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+            },
+            method: 'GET',
         }
-        getUserQueryDetails()
-    }, [])
+        const response = await fetch(url, options)
+        if (response.ok) {
+            const data = await response.json()
+            const updatedData = data.queries.map(eachList => ({
+                id: eachList.id,
+                organizationName: eachList.organization_name,
+                correspondentName: eachList.correspondent_name,
+                email: eachList.email,
+                contactNumber: eachList.contact_number,
+                address: eachList.address
+            }))
+            this.setState({
+                userQueryDetails: updatedData,
+                apiStatus: apiStatusConstants.success
+            })
+        } else {
+            this.setState({
+                apiStatus: apiStatusConstants.failure
+            })
+        }
 
-    const renderUserQueryDetails = () => {
+    }
+
+    onChangeQuerySearch = event => {
+        this.setState({ searchInput: event.target.value }, this.getUserQueryDetails)
+        this.renderSearchQueryResults()
+    }
+
+    renderSearchQueryResults = () => {
+        const { userQueryDetails, searchInput } = this.state
+        const searchResults = userQueryDetails.filter(eachList => eachList.organizationName.toLowerCase().includes(searchInput.toLowerCase()))
+        this.setState({ userQueryDetails: searchResults })
+    }
+
+
+    renderUserQueryDetails = () => {
+        const { userQueryDetails } = this.state
+        const isEmpty = userQueryDetails.length === 0
         return (
             <>
-                <ul className="user-query-list-container">
-                    <div className="user-query-table-head-container">
-                        <p className="school-name">Organization Name</p>
-                        <p className="correspondent-name">Correspondent Name</p>
-                        <p className="email">Email</p>
-                        <p className="contact-number">Contact Number</p>
-                        <p className="address">Address</p>
+                {isEmpty ? (
+                    <div className='no-data-found-container'>
+                        <img className='no-data-found-img' src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png" alt='no-data-found' />
+                        <h1 className='no-data-found-head'>No Data Found</h1>
+                        <p className='no-data-found-desc'>We could not find any user query data. Please try after sometime.</p>
                     </div>
-                    {userQueryDetails.map(eachQuery => (
-                        <AdminUserQueryItem userQuery={eachQuery} key={eachQuery.id} />
-                    ))}
-                </ul>
+                ) : (
+                    <ul className="user-query-list-container">
+                        {userQueryDetails.map(eachQuery => (
+                            <AdminUserQueryItem userQuery={eachQuery} key={eachQuery.id} />
+                        ))}
+                    </ul>
+                )}
             </>
         )
     }
 
-    const renderNoDataFoundView = () => {
-        return (
-            <div className='no-data-found-container'>
-                <img className='no-data-found-img' src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png" alt='no-data-found' />
-                <h1 className='no-data-found-head'>No Data Found</h1>
-                <p className='no-data-found-desc'>We could not find any user query data. Please try after.</p>
-            </div>
-        )
-    }
 
-    const onClickPageDecrement = () => {
+    onClickPageDecrement = () => {
+        const { activePageNumber } = this.state
         if (activePageNumber > 1) {
-            setActivePageNumber((prevState) => prevState - 1)
+            this.setState(prevState => ({
+                activePage: prevState.activePage - 1,
+                activePageNumber: prevState.activePageNumber - 1
+            }), this.getUserQueryDetails)
         }
     }
 
-    const onClickPageIncrement = () => {
+    onClickPageIncrement = () => {
+        const { activePageNumber, totalPages } = this.state
+        console.log(totalPages)
         if (activePageNumber < totalPages) {
-            setActivePageNumber((prevState) => prevState + 1)
+            this.setState(prevState => ({
+                activePage: prevState.activePage + 1,
+                activePageNumber: prevState.activePageNumber + 1
+            }), this.getUserQueryDetails)
         }
     }
 
-    const renderLoadingView = () => {
+    renderLoadingView = () => {
         return (
             <div className="loader-container">
                 <RotatingLines
@@ -114,45 +139,72 @@ const AdminUserQueryReports = () => {
         )
     }
 
-    const renderFailureView = () => { }
+    renderFailureView = () => {
+        return (
+            <div className='no-data-found-container'>
+                <img className='no-data-found-img' src="https://assets.ccbp.in/frontend/react-js/failure-img.png" alt='no-data-found' />
+                <h1 className='no-data-found-head'>Oops! Something Went Wrong</h1>
+                <p className='no-data-found-desc'>We cannot seem to find the page you are looking for.</p>
+                <button type="button" className="user-query-retry-btn" onClick={this.retryUserQuery}>Retry</button>
+            </div>
+        )
+    }
 
-    const renderApiStatusView = () => {
+    retryUserQuery = () => {
+        this.getUserQueryDetails()
+    }
+
+    renderApiStatusView = () => {
+        const { apiStatus } = this.state
         switch (apiStatus) {
             case apiStatusConstants.success:
-                return renderUserQueryDetails()
+                return this.renderUserQueryDetails()
             case apiStatusConstants.failure:
-                return renderFailureView()
+                return this.renderFailureView()
             case apiStatusConstants.inProgress:
-                return renderLoadingView()
+                return this.renderLoadingView()
             default:
                 return null
         }
     }
 
-    return (
-        <div>
-            <AdminHeader />
-            <div className="user-query-reports-container">
-                {isEmpty ? renderNoDataFoundView() : (
-                    <>
-                        <h1 className="user-query-reports-head">User Query Reports</h1>
-                        <div className="user-query-reports-table-container">
-                            {renderApiStatusView()}
-                            <div className="page-numbers-container">
-                                <button type="button" className="page-btn" onClick={onClickPageDecrement}>
-                                    <IoIosArrowDropleftCircle className="page-icon" />
-                                </button>
-                                <p className="total-pages">{activePageNumber} of {totalPages}</p>
-                                <button type="button" className="page-btn" onClick={onClickPageIncrement}>
-                                    <IoIosArrowDroprightCircle className="page-icon" />
-                                </button>
-                            </div>
+    render() {
+        const { activePageNumber, totalPages, searchInput, userQueryDetails } = this.state
+        const isEmpty = userQueryDetails.length !== 0
+        return (
+            <div>
+                <AdminHeader />
+                <div className="user-query-reports-container">
+                    <h1 className="user-query-reports-head">User Query Reports</h1>
+                    <div className="query-search-container">
+                        <div className="input-container">
+                            <IoSearchSharp className="query-search-icon" />
+                            <input value={searchInput} className="query-search-input" type="search" id="query-search" placeholder="Search" onChange={this.onChangeQuerySearch} />
                         </div>
-                    </>
-                )}
+                    </div>
+                    <div className="user-query-reports-table-container">
+                        <div className="user-query-table-head-container">
+                            <p className="school-name">Organization Name</p>
+                            <p className="correspondent-name">Correspondent Name</p>
+                            <p className="email">Email</p>
+                            <p className="contact-number">Contact Number</p>
+                            <p className="address">Address</p>
+                        </div>
+                        {this.renderApiStatusView()}
+                    </div>
+                </div>
+                {isEmpty && (<div className="page-numbers-container">
+                    <button type="button" className="page-btn" onClick={this.onClickPageDecrement}>
+                        <IoIosArrowDropleftCircle className="page-icon" />
+                    </button>
+                    <p className="total-pages">{activePageNumber} of {totalPages}</p>
+                    <button type="button" className="page-btn" onClick={this.onClickPageIncrement}>
+                        <IoIosArrowDroprightCircle className="page-icon" />
+                    </button>
+                </div>)}
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default AdminUserQueryReports
