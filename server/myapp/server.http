@@ -15,14 +15,14 @@ Content-Type: application/json
 {
     "organizationName" : "Bheeram Sreedhar Reddy International School",
     "correspondentName" : "Srikanth",
-    "email" : "sris@gmail.com",
+    "email" : "sris143@gmail.com",
     "contactNumber" : 7396801280,
     "address" : "Kadapa"
 }
 
 ###
 
-GET http://localhost:3009/user_query/?offset=0&limit=3&search=GAUTAM
+GET http://localhost:3009/user_query/?offset=0&limit=3&search=BHEERAM
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAwNCIsImlhdCI6MTcwMDc2MTM2N30.9CHW8Uif-3QmT7M3Q6O-b_hBdVjXHNZCGZXLbo4gIfU
 
 ###

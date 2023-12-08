@@ -28,12 +28,18 @@ class AdminUserQueryReports extends Component {
         apiStatus: apiStatusConstants.initial,
     }
 
+
     componentDidMount() {
         this.getUserQueryDetails()
     }
 
     getUserQueryDetails = async () => {
         const { activePage, limit, searchInput } = this.state
+        const datetime = new Date();
+        const newDate = ("0" + datetime.getDate()).slice(-2);
+        const newMonth = ("0" + (datetime.getMonth() + 1)).slice(-2)
+        const newYear = datetime.getFullYear()
+        const queryDate = newDate + "-" + newMonth + "-" + newYear
         this.setState({
             apiStatus: apiStatusConstants.inProgress
         })
@@ -84,6 +90,7 @@ class AdminUserQueryReports extends Component {
     renderUserQueryDetails = () => {
         const { userQueryDetails } = this.state
         const isEmpty = userQueryDetails.length === 0
+
         return (
             <>
                 {isEmpty ? (
@@ -93,11 +100,13 @@ class AdminUserQueryReports extends Component {
                         <p className='no-data-found-desc'>We could not find any user query data. Please try after sometime.</p>
                     </div>
                 ) : (
-                    <ul className="user-query-list-container">
-                        {userQueryDetails.map(eachQuery => (
-                            <AdminUserQueryItem userQuery={eachQuery} key={eachQuery.id} />
-                        ))}
-                    </ul>
+                    <>
+                        <ul className="user-query-list-container">
+                            {userQueryDetails.map(eachQuery => (
+                                <AdminUserQueryItem userQuery={eachQuery} key={eachQuery.id} />
+                            ))}
+                        </ul>
+                    </>
                 )}
             </>
         )
@@ -116,7 +125,6 @@ class AdminUserQueryReports extends Component {
 
     onClickPageIncrement = () => {
         const { activePageNumber, totalPages } = this.state
-        console.log(totalPages)
         if (activePageNumber < totalPages) {
             this.setState(prevState => ({
                 activePage: prevState.activePage + 1,
@@ -152,6 +160,10 @@ class AdminUserQueryReports extends Component {
 
     retryUserQuery = () => {
         this.getUserQueryDetails()
+    }
+
+    onClickPrintQueryReports = () => {
+        window.print()
     }
 
     renderApiStatusView = () => {
@@ -193,15 +205,20 @@ class AdminUserQueryReports extends Component {
                         {this.renderApiStatusView()}
                     </div>
                 </div>
-                {isEmpty && (<div className="page-numbers-container">
-                    <button type="button" className="page-btn" onClick={this.onClickPageDecrement}>
-                        <IoIosArrowDropleftCircle className="page-icon" />
-                    </button>
-                    <p className="total-pages">{activePageNumber} of {totalPages}</p>
-                    <button type="button" className="page-btn" onClick={this.onClickPageIncrement}>
-                        <IoIosArrowDroprightCircle className="page-icon" />
-                    </button>
-                </div>)}
+                {isEmpty && (
+                    <div className="print-container">
+                        <div className="page-numbers-container">
+                            <button type="button" className="page-btn" onClick={this.onClickPageDecrement}>
+                                <IoIosArrowDropleftCircle className="page-icon" />
+                            </button>
+                            <p className="total-pages">{activePageNumber} of {totalPages}</p>
+                            <button type="button" className="page-btn" onClick={this.onClickPageIncrement}>
+                                <IoIosArrowDroprightCircle className="page-icon" />
+                            </button>
+                        </div>
+                        <button type="button" className="query-reports-print-btn" onClick={this.onClickPrintQueryReports}>Print</button>
+                    </div>
+                )}
             </div>
         )
     }
