@@ -1,6 +1,6 @@
 .user-query-reports-container {
     background-color: #ffffff;
-    height: 85vh;
+    min-height: 100vh;
     background-size: cover;
 }
 
@@ -86,7 +86,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-top: 10%;
 }
 
 
@@ -96,6 +95,8 @@
     flex-direction: column;
     list-style-type: none;
     padding-left: 0px;
+    margin-top: 0px;
+    width: 90%;
 }
 
 .total-pages {
@@ -130,6 +131,8 @@
     background-color: #72024D;
     padding-left: 20px;
     padding-right: 20px;
+    width: 88%;
+
 }
 
 .school-name {

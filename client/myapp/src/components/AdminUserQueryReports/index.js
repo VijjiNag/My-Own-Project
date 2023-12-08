@@ -181,17 +181,19 @@ class AdminUserQueryReports extends Component {
     }
 
     render() {
-        const { activePageNumber, totalPages, searchInput, userQueryDetails } = this.state
+        const { activePageNumber, searchInput, totalPages, userQueryDetails } = this.state
         const isEmpty = userQueryDetails.length !== 0
         return (
             <div>
                 <AdminHeader />
                 <div className="user-query-reports-container">
-                    <h1 className="user-query-reports-head">User Query Reports</h1>
-                    <div className="query-search-container">
-                        <div className="input-container">
-                            <IoSearchSharp className="query-search-icon" />
-                            <input value={searchInput} className="query-search-input" type="search" id="query-search" placeholder="Search" onChange={this.onChangeQuerySearch} />
+                    <div className="query-reports-header-container">
+                        <h1 className="user-query-reports-head">User Query Reports</h1>
+                        <div className="query-search-container">
+                            <div className="input-container">
+                                <IoSearchSharp className="query-search-icon" />
+                                <input value={searchInput} className="query-search-input" type="search" id="query-search" placeholder="Search" onChange={this.onChangeQuerySearch} />
+                            </div>
                         </div>
                     </div>
                     <div className="user-query-reports-table-container">
