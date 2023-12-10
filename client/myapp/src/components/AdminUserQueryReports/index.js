@@ -23,7 +23,6 @@ class AdminUserQueryReports extends Component {
         activePageNumber: 1,
         limit: 10,
         activePage: 1,
-        totalPages: 3,
         searchInput: "",
         apiStatus: apiStatusConstants.initial,
     }
@@ -181,8 +180,18 @@ class AdminUserQueryReports extends Component {
     }
 
     render() {
-        const { activePageNumber, searchInput, totalPages, userQueryDetails } = this.state
+        const { activePageNumber, searchInput, userQueryDetails, limit } = this.state
+        const totalPages = userQueryDetails.length/limit
         const isEmpty = userQueryDetails.length !== 0
+        //let date1 = new Date("12/09/2023");
+        //let date2 = new Date("01/08/2024");
+        //let Difference_In_Time = date2.getTime() - date1.getTime();
+        //let Difference_In_Days =
+        //  Math.round(Difference_In_Time / (1000 * 3600 * 24));
+        //console.log("Total number of days between dates:\n" +
+        //date1.toDateString() + " and " + date2.toDateString() +
+        //" is: " + Difference_In_Days + " days");
+        //console.log(date1.toDateString())
         return (
             <div>
                 <AdminHeader />

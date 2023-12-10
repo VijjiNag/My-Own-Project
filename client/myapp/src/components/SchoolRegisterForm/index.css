@@ -1,0 +1,114 @@
+.school-register-bg-container {
+    background-color: #ffffff;
+    background-size: cover;
+}
+.school-reg-head {
+    font-family: sans-serif;
+    text-align: center;
+    color: #72024D;
+    font-weight: bold;
+}
+.school-reg-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+    background-size: cover;
+    align-items: center;
+}
+.school-reg-form-container {
+    display: flex;
+    flex-direction: column;
+}
+.school-reg-form-row-container {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+.school-reg-form-input-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+}
+.school-reg-label {
+    font-family: sans-serif;
+    margin-top: 30px;
+    font-weight: bold;
+    color: #013e66;
+    margin-bottom: 15px;
+}
+
+.school-reg-input {
+    font-family: sans-serif;
+    color: #17013E;
+    border-radius: 8px;
+    height: 45px;
+    width: 300px;
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 15px;
+    outline: none;
+    border-color: #013e66;
+    background-color: #D5EDF8;
+    font-size: 20px;
+}
+.school-register-btn {
+    background-color: #72024D;
+    color: #ffffff;
+    border-width: 0px;
+    height: 40px;
+    width: 130px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+}
+.school-reg-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.school-logo-img {
+    height: 70px;
+    width: 70px;
+}
+
+.school-logo-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.school-reg-input-file {
+    font-family: sans-serif;
+    color: #17013E;
+    border-radius: 8px;
+    height: 45px;
+    width: 100%;
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 15px;
+    outline: none;
+    border-color: #013e66;
+    background-color: #D5EDF8;
+    font-size: 20px;
+}
+.err-msg {
+    font-family: sans-serif;
+    color: #d90416;
+    font-weight: 700;
+}
+.error-msg-school-reg {
+    font-family: sans-serif;
+    color: #d90416;
+    font-weight: 700;
+    text-align: center;
+}
+
+.success-msg-school-reg {
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #2AB300;
+    text-align: center;
+}

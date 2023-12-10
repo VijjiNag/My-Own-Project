@@ -5,19 +5,12 @@ const { open } = require("sqlite");
 const sqlite3 = require("sqlite3");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const {v4 : uuidv4} = require('uuid')
+const { v4: uuidv4 } = require('uuid')
 const cors = require('cors');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-
-const datetime = new Date();
-const newDate = ("0" + datetime.getDate()).slice(-2);
-const newMonth = ("0" + (datetime.getMonth() + 1)).slice(-2)
-const newYear = datetime.getFullYear()
-const fullDate = newDate + "-" + newMonth + "-" + newYear
-console.log(fullDate)
 
 
 const dbPath = path.join(__dirname, "database.db");
@@ -88,17 +81,17 @@ app.post("/user_query/", async (request, response) => {
        '${address}'
       );`;
     await db.run(createUserQuery);
-    response.send({success_msg:`Congratulations ${correspondentName} !! You have registered successfully with us. Our team will contact you as soon as possible. Thank you for your interest.`});
+    response.send({ success_msg: `Congratulations ${correspondentName} !! You have registered successfully with us. Our team will contact you as soon as possible. Thank you for your interest.` });
   } else {
     response.status(400);
-    response.send({error_msg:"This email already exists"});
+    response.send({ error_msg: "This email already exists" });
   }
 });
 
 //User query details
 
 app.get("/user_query/", authenticateToken, async (request, response) => {
-  const {offset, limit, search = ""} = request.query
+  const { offset, limit, search = "" } = request.query
   const getUserQuery = `
     SELECT
       *
@@ -108,7 +101,7 @@ app.get("/user_query/", authenticateToken, async (request, response) => {
     organization_name LIKE '%${search}%'
     LIMIT ${limit} OFFSET ${offset}`;
   const userQueryArray = await db.all(getUserQuery);
-  response.send({queries : userQueryArray});
+  response.send({ queries: userQueryArray });
 });
 
 
@@ -146,67 +139,84 @@ app.post("/admin/", async (request, response) => {
 //Admin Login
 
 app.post("/admin_login/", async (request, response) => {
-    const {username, password} = request.body
-    const selectUserQuery = `SELECT * FROM admin WHERE username = '${username}'`;
-    const dbUser = await db.get(selectUserQuery);
-    if (dbUser === undefined) {
-      response.status(400);
-      response.send({status_code : 400, error_msg : "Invalid username"});
+  const { username, password } = request.body
+  const selectUserQuery = `SELECT * FROM admin WHERE username = '${username}'`;
+  const dbUser = await db.get(selectUserQuery);
+  if (dbUser === undefined) {
+    response.status(400);
+    response.send({ status_code: 400, error_msg: "Invalid username" });
+  } else {
+    const isPasswordMatched = await bcrypt.compare(password, dbUser.password);
+    if (isPasswordMatched === true) {
+      const payload = {
+        "username": username,
+      };
+      const jwt_token = jwt.sign(payload, "MY_SECRET_TOKEN");
+      response.send({ jwt_token });
     } else {
-      const isPasswordMatched = await bcrypt.compare(password, dbUser.password);
-      if (isPasswordMatched === true) {
-        const payload = {
-          "username": username,
-        };
-        const jwt_token = jwt.sign(payload, "MY_SECRET_TOKEN");
-        response.send({ jwt_token });
-      } else {
-        response.status(400);
-        response.send({status_code : 400, error_msg : "Invalid Password"});
-      }
+      response.status(400);
+      response.send({ status_code: 400, error_msg: "Invalid Password" });
     }
-  });
+  }
+});
 
-  //Admin Profile
-  
-  app.get("/admin/profile/", authenticateToken, async (request, response) => {
-    let { username } = request;
-    const selectUserQuery = `SELECT * FROM admin WHERE username = '${username}'`;
-    const userDetails = await db.get(selectUserQuery);
-    response.send(userDetails);
-  });
+//Admin Profile
 
-  //Register School
+app.get("/admin/profile/", authenticateToken, async (request, response) => {
+  let { username } = request;
+  const selectUserQuery = `SELECT * FROM admin WHERE username = '${username}'`;
+  const userDetails = await db.get(selectUserQuery);
+  response.send(userDetails);
+});
 
-  app.post("/schools/", authenticateToken, async (request, response) => {
-    const schoolDetails = request.body
-    const {schoolName, username, password, adminId} = schoolDetails
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const id = uuidv4()
-    const selectUserQuery = `
+//Register School
+
+app.post("/schools/", authenticateToken, async (request, response) => {
+  const schoolDetails = request.body
+  const { schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpTo, password, avatarUrl, adminId } = schoolDetails
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const datetime = new Date();
+  const newDate = ("0" + datetime.getDate()).slice(-2);
+  const newMonth = ("0" + (datetime.getMonth() + 1)).slice(-2)
+  const newYear = datetime.getFullYear()
+  const registeredDate = newDate + "-" + newMonth + "-" + newYear
+  const id = uuidv4()
+  const selectUserQuery = `
     SELECT 
       * 
     FROM 
       school 
     WHERE 
-      username = '${username}';`;
+      email = '${email}';`;
   const dbUser = await db.get(selectUserQuery);
   if (dbUser === undefined) {
     const createSchoolQuery = `
      INSERT INTO
-      school (id, school_name, username, password, admin_id)
+      school (id, school_name, correspondent_name, email, contact_number, street, village_or_town, city, district, state_name, pin_code, enroll_for_days, valid_up_to, password, avatar_url, registered_date, admin_id)
      VALUES
       ('${id}',
         '${schoolName}',
-       '${username}',
+        '${correspondentName}',
+       '${email}',
+       ${contactNumber},
+       '${street}',
+       '${villageOrTown}',
+       '${city}',
+       '${district}',
+       '${stateName}',
+       ${pinCode},
+       ${enrollForDays},
+       '${validUpTo}',
        '${hashedPassword}',
+       '${avatarUrl}',
+       '${registeredDate}',
        '${adminId}'
       );`;
     await db.run(createSchoolQuery);
-    response.send("School created successfully");
+    response.send({success_msg : "School Registered successfully"});
   } else {
     response.status(400);
-    response.send("School already exists");
+    response.send({error_msg : "School already exists"});
   }
 })
 
@@ -220,5 +230,5 @@ app.get("/admin/:adminId/schools/", authenticateToken, async (request, response)
      WHERE
      admin_id = '${adminId}';`;
   const schoolsArray = await db.all(getAdminSchoolsQuery);
-  response.send({schoolsList : schoolsArray});
+  response.send({ schoolsList: schoolsArray });
 });
