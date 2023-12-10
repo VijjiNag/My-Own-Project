@@ -181,7 +181,7 @@ class AdminUserQueryReports extends Component {
 
     render() {
         const { activePageNumber, searchInput, userQueryDetails, limit } = this.state
-        const totalPages = userQueryDetails.length/limit
+        const totalPages = Math.ceil(userQueryDetails.length/limit)
         const isEmpty = userQueryDetails.length !== 0
         //let date1 = new Date("12/09/2023");
         //let date2 = new Date("01/08/2024");
