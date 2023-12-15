@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import AdminHeader from "../AdminHeader";
 import AdminContext from "../../context/AdminContext";
@@ -8,7 +8,9 @@ const AdminHome = () => {
     return (
         <>
             <AdminHeader />
-            <h1>Home</h1>
+            <div className="admin-home-bg-container">
+                <h1>Home</h1>
+            </div>
         </>
     )
 }

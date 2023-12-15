@@ -20,9 +20,11 @@ const apiStatusConstants = {
 class AdminUserQueryReports extends Component {
     state = {
         userQueryDetails: [],
+        currentItems: [],
+        currentPage: 0,
         activePageNumber: 1,
-        limit: 10,
-        activePage: 1,
+        pageSige: 10,
+        pageCount: "",
         searchInput: "",
         apiStatus: apiStatusConstants.initial,
     }
@@ -30,10 +32,11 @@ class AdminUserQueryReports extends Component {
 
     componentDidMount() {
         this.getUserQueryDetails()
+        this.onPageChange(0)
     }
 
     getUserQueryDetails = async () => {
-        const { activePage, limit, searchInput } = this.state
+        const { activePage, pageSige, searchInput, userQueryDetails } = this.state
         const datetime = new Date();
         const newDate = ("0" + datetime.getDate()).slice(-2);
         const newMonth = ("0" + (datetime.getMonth() + 1)).slice(-2)
@@ -43,8 +46,8 @@ class AdminUserQueryReports extends Component {
             apiStatus: apiStatusConstants.inProgress
         })
         const jwtToken = Cookies.get("jwt_token")
-        const offset = (activePage - 1) * limit
-        const url = `http://localhost:3009/user_query?offset=${offset}&limit=${limit}&search=${searchInput}`
+        //const offset = (activePage - 1) * limit
+        const url = `http://localhost:3009/user_query?search=${searchInput}`
         const options = {
             headers: {
                 Authorization: `Bearer ${jwtToken}`,
@@ -64,6 +67,8 @@ class AdminUserQueryReports extends Component {
             }))
             this.setState({
                 userQueryDetails: updatedData,
+                currentItems: updatedData.slice(0, pageSige),
+                pageCount: Math.ceil(updatedData.length / pageSige),
                 apiStatus: apiStatusConstants.success
             })
         } else {
@@ -87,8 +92,8 @@ class AdminUserQueryReports extends Component {
 
 
     renderUserQueryDetails = () => {
-        const { userQueryDetails } = this.state
-        const isEmpty = userQueryDetails.length === 0
+        const { currentItems } = this.state
+        const isEmpty = currentItems.length === 0
 
         return (
             <>
@@ -101,8 +106,8 @@ class AdminUserQueryReports extends Component {
                 ) : (
                     <>
                         <ul className="user-query-list-container">
-                            {userQueryDetails.map(eachQuery => (
-                                <AdminUserQueryItem userQuery={eachQuery} key={eachQuery.id} />
+                            {currentItems.map((eachQuery, index) => (
+                                <AdminUserQueryItem userQuery={eachQuery} key={index} />
                             ))}
                         </ul>
                     </>
@@ -112,7 +117,7 @@ class AdminUserQueryReports extends Component {
     }
 
 
-    onClickPageDecrement = () => {
+    /*onClickPageDecrement = () => {
         const { activePageNumber } = this.state
         if (activePageNumber > 1) {
             this.setState(prevState => ({
@@ -120,9 +125,9 @@ class AdminUserQueryReports extends Component {
                 activePageNumber: prevState.activePageNumber - 1
             }), this.getUserQueryDetails)
         }
-    }
+    }*/
 
-    onClickPageIncrement = () => {
+    /*onClickPageIncrement = () => {
         const { activePageNumber, totalPages } = this.state
         if (activePageNumber < totalPages) {
             this.setState(prevState => ({
@@ -130,7 +135,7 @@ class AdminUserQueryReports extends Component {
                 activePageNumber: prevState.activePageNumber + 1
             }), this.getUserQueryDetails)
         }
-    }
+    }*/
 
     renderLoadingView = () => {
         return (
@@ -157,12 +162,23 @@ class AdminUserQueryReports extends Component {
         )
     }
 
+    onPageChange = (index) => {
+        const { userQueryDetails, pageSige } = this.state
+        const currentList = userQueryDetails.slice(index * pageSige, pageSige * (index + 1))
+        this.setState({ currentPage: index, currentItems: currentList })
+    }
+
     retryUserQuery = () => {
         this.getUserQueryDetails()
     }
 
     onClickPrintQueryReports = () => {
         window.print()
+    }
+
+    onChangePageSize = event => {
+        const {userQueryDetails} = this.state
+        this.setState({pageSige : parseInt(event.target.value), pageCount : Math.ceil(userQueryDetails.length / parseInt(event.target.value))}, this.getUserQueryDetails)
     }
 
     renderApiStatusView = () => {
@@ -180,8 +196,7 @@ class AdminUserQueryReports extends Component {
     }
 
     render() {
-        const { activePageNumber, searchInput, userQueryDetails, limit } = this.state
-        const totalPages = Math.ceil(userQueryDetails.length/limit)
+        const { activePageNumber, searchInput, userQueryDetails, pageCount, currentPage, totalPages, pageSige } = this.state
         const isEmpty = userQueryDetails.length !== 0
         //let date1 = new Date("12/09/2023");
         //let date2 = new Date("01/08/2024");
@@ -199,6 +214,15 @@ class AdminUserQueryReports extends Component {
                     <div className="query-reports-header-container">
                         <h1 className="user-query-reports-head">User Query Reports</h1>
                         <div className="query-search-container">
+                        <div className="page-drop-down-container">
+                                <label className="pages-label" htmlFor="pages">Pages</label>
+                                <select className="page-drop-down" id="pages" value={pageSige} onChange={this.onChangePageSize}>
+                                    <option value={10}>10</option>
+                                    <option value={20}>20</option>
+                                    <option value={50}>50</option>
+                                    <option value={100}>100</option>
+                                </select>
+                            </div>
                             <div className="input-container">
                                 <IoSearchSharp className="query-search-icon" />
                                 <input value={searchInput} className="query-search-input" type="search" id="query-search" placeholder="Search" onChange={this.onChangeQuerySearch} />
@@ -219,13 +243,13 @@ class AdminUserQueryReports extends Component {
                 {isEmpty && (
                     <div className="print-container">
                         <div className="page-numbers-container">
-                            <button type="button" className="page-btn" onClick={this.onClickPageDecrement}>
-                                <IoIosArrowDropleftCircle className="page-icon" />
-                            </button>
-                            <p className="total-pages">{activePageNumber} of {totalPages}</p>
-                            <button type="button" className="page-btn" onClick={this.onClickPageIncrement}>
-                                <IoIosArrowDroprightCircle className="page-icon" />
-                            </button>
+                            <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(0)} disabled={currentPage === 0}>First</button>
+                            <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(currentPage - 1)} disabled={currentPage === 0}>Prev</button>
+                            {Array(pageCount).fill(null).map((page, index) => (
+                                <button className={`${currentPage === index ? "active-btn" : "default-btn"}`} key={index} onClick={() => this.onPageChange(index)}>{index + 1}</button>
+                            ))}
+                            <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(currentPage + 1)} disabled={currentPage === pageCount - 1}>Next</button>
+                            <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(pageCount - 1)} disabled={currentPage === pageCount - 1}>Last</button>
                         </div>
                         <button type="button" className="query-reports-print-btn" onClick={this.onClickPrintQueryReports}>Print</button>
                     </div>

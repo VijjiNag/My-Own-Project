@@ -18,7 +18,7 @@ const SchoolRegisterForm = () => {
     const [stateName, setStateName] = useState("")
     const [pinCode, setPinCode] = useState("")
     const [enrollForDays, setEnrollForDays] = useState("")
-    const [validUpTo, setValidUpTo] = useState("")
+    const [validUpToDate, setValidUpTo] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [avatarUrl, setAvatarUrl] = useState("")
@@ -28,8 +28,13 @@ const SchoolRegisterForm = () => {
     const [successMsg, setSuccessMsg] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
     const [emptySchoolDetails, setEmptySchoolDetails] = useState({schoolName : "", correspondentName : "", email : "", contactNumber : "",
-    street : "", villageOrTown : "", city : "", district : "", stateName : "", pinCode : "", enrollForDays : "", validUpTo : "", password : "",
+    street : "", villageOrTown : "", city : "", district : "", stateName : "", pinCode : "", enrollForDays : "", validUpToDate : "", password : "",
     confirmPassword : "", avatarUrl : ""})
+
+    const validDate = validUpToDate.slice(8, 10)
+    const validMonth = validUpToDate.slice(5, 7)
+    const validYear = validUpToDate.slice(0, 4)
+    const validUpTo = validDate + "-" + validMonth + "-" + validYear
 
     const onChangeSchoolName = event => {
         setSchoolName(() => event.target.value.toUpperCase())
@@ -106,7 +111,7 @@ const SchoolRegisterForm = () => {
 
     const onSubmitSchoolRegisterForm = async event => {
         event.preventDefault()
-        setEmptySchoolDetails({schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpTo, password, confirmPassword, avatarUrl})
+        setEmptySchoolDetails({schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpToDate, password, confirmPassword, avatarUrl})
         setSchoolName("")
         setCorrespondentName("")
         setEmail("")
@@ -203,7 +208,7 @@ const SchoolRegisterForm = () => {
                         </div>
                         <div className='school-reg-form-input-container'>
                             <label className='school-reg-label' htmlFor='school-valid-upto'>Valid upto</label>
-                            <input value={validUpTo} className='school-reg-input' id='school-valid-upto' type='date' placeholder='VALID UPTO' onChange={onChangeValidUpTo} required />
+                            <input value={validUpToDate} className='school-reg-input' id='school-valid-upto' type='date' placeholder='VALID UPTO' onChange={onChangeValidUpTo} required />
                         </div>
                     </div>
                     <div className='school-reg-form-row-container'>

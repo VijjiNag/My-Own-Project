@@ -91,15 +91,14 @@ app.post("/user_query/", async (request, response) => {
 //User query details
 
 app.get("/user_query/", authenticateToken, async (request, response) => {
-  const { offset, limit, search = "" } = request.query
+  const { search = "" } = request.query
   const getUserQuery = `
     SELECT
       *
     FROM
       user_query
     WHERE
-    organization_name LIKE '%${search}%'
-    LIMIT ${limit} OFFSET ${offset}`;
+    organization_name LIKE '%${search}%'`;
   const userQueryArray = await db.all(getUserQuery);
   response.send({ queries: userQueryArray });
 });
@@ -163,10 +162,10 @@ app.post("/admin_login/", async (request, response) => {
 //Admin Profile
 
 app.get("/admin/profile/", authenticateToken, async (request, response) => {
-  let { username } = request;
+  const { username } = request;
   const selectUserQuery = `SELECT * FROM admin WHERE username = '${username}'`;
   const userDetails = await db.get(selectUserQuery);
-  response.send(userDetails);
+  response.send({userProfile : userDetails});
 });
 
 //Register School
@@ -219,6 +218,8 @@ app.post("/schools/", authenticateToken, async (request, response) => {
     response.send({error_msg : "School already exists"});
   }
 })
+
+//Get School Details
 
 app.get("/admin/:adminId/schools/", authenticateToken, async (request, response) => {
   const { adminId } = request.params;

@@ -2,6 +2,7 @@
     background-color: #ffffff;
     min-height: 100vh;
     background-size: cover;
+    padding-top: 5%;
 }
 
 .user-query-reports-head {
@@ -15,6 +16,59 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
+}
+
+.active-btn {
+    font-family: sans-serif;
+    border-radius: 0px;
+    font-weight: 700;
+    border-width: 0px;
+    background-color: #01285F;
+    color: #ffffff;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+}
+.direction-btn {
+    font-family: sans-serif;
+    border-style: solid;
+    border-color: #D2D3D4;
+    background-color: #D6EEEE;
+    font-weight: 700;
+    border-width: 1px;
+    border-radius: 0px;
+    height: 35px;
+    width: 60px;
+    cursor: pointer;
+}
+.direction-btn-cursor-not-allowed {
+    font-family: sans-serif;
+    border-style: solid;
+    border-color: #D2D3D4;
+    background-color: #D6EEEE;
+    font-weight: 700;
+    border-width: 1px;
+    border-radius: 0px;
+    height: 35px;
+    width: 60px;
+    cursor:not-allowed;
+}
+.active-color {
+    color: #72024D;
+}
+.default-btn {
+    font-family: sans-serif;
+    border-style: solid;
+    border-color: #D2D3D4;
+    font-weight: 700;
+    border-width: 1px;
+    background-color: #D6EEEE;
+    border-radius: 0px;
+    color: #72024D;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
 }
 
 .user-query-reports-table-container {
@@ -33,6 +87,7 @@
     border-radius: 8px;
     border-width: 0px;
     margin-bottom: 20px;
+    margin-top: 20px;
     cursor: pointer;
 }
 
@@ -49,9 +104,30 @@
 .query-search-container {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-right: 8%;
     margin-bottom: 25px;
+}
+.page-drop-down {
+    font-family: sans-serif;
+    width: 100px;
+    height: 30px;
+    border-radius: 0px;
+    margin-left: 20px;
+    outline: none;
+    padding: 5px;
+}
+.page-drop-down-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8%;
+}
+.pages-label {
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #02024B;
 }
 .input-container {
     border-style: solid;
@@ -184,5 +260,8 @@
     }
     .user-query-reports-table-container {
         width: 107%;
+    }
+    .user-query-reports-container {
+        padding-top: 1%;
     }
 }

@@ -44,3 +44,9 @@
     font-weight: 600;
     cursor: pointer;
 }
+.admin-college-reports-bg-container {
+    background-color: #ffffff;
+    height: 100vh;
+    background-size: cover;
+    padding-top: 5%;
+}

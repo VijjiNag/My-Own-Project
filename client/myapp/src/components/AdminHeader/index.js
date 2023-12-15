@@ -12,7 +12,7 @@ const AdminHeader = () => {
     useEffect(() => {
         const getProfile = async () => {
             const jwtToken = Cookies.get("jwt_token")
-            const url = "http://localhost:3009/admin/profile/"
+            const url = "http://localhost:3009/admin/profile"
             const options = {
                 headers: {
                     Authorization: `Bearer ${jwtToken}`,
@@ -22,8 +22,8 @@ const AdminHeader = () => {
             const response = await fetch(url, options)
             if (response.ok) {
                 const data = await response.json()
-                setAdminId(() => data.id)
-                setAdminName(() => data.name)
+                setAdminId(() => data.userProfile.id)
+                setAdminName(() => data.userProfile.name)
             }
         }
         getProfile()
