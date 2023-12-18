@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useParams } from 'react-router-dom';
-import AdminHeader from '../AdminHeader'
+import AdminNavHeader from '../AdminNavHeader';
 import './index.css'
 
 const SchoolRegisterForm = () => {
@@ -241,9 +241,9 @@ const SchoolRegisterForm = () => {
         )
     }
     return (
-        <div>
-            <AdminHeader />
-            <div className='school-register-bg-container'>
+        <div className='admin-reg-school-bg-container'>
+            <AdminNavHeader />
+            <div className='admin-reg-school-content-container'>
                 <h1 className='school-reg-head'>School Registration</h1>
                 {renderSchoolRegistrationForm()}
             </div>

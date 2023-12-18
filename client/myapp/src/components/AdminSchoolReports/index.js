@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import AdminHeader from '../AdminHeader'
+import AdminNavHeader from '../AdminNavHeader';
 import './index.css'
 
 const AdminSchoolReports = () => {
@@ -31,10 +31,10 @@ const AdminSchoolReports = () => {
     }, [])
 
     return (
-        <div>
-            <AdminHeader />
-            <div className='admin-school-reports-bg-container'>
-                <div className='no-data-found-container'>
+        <div className="school-reports-bg-container">
+            <AdminNavHeader />
+            <div className="school-reports-content-container">
+                <div className='school-no-data-found-container'>
                     <img className='no-data-found-img' src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png" alt='no-data-found' />
                     <h1 className='no-data-found-head'>No Data Found</h1>
                     <p className='no-data-found-desc'>We could not find any schools. Register the school using below link.</p>

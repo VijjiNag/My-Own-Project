@@ -32,7 +32,7 @@ const App = () => {
               <Route exact path='/user_query' element={<GetStarted/>}/>
             </Route>
             <Route element={<ProtectedRoute auth={isAuth} />}>
-              <Route exact path='/admin' element={<AdminHome />} />
+              <Route exact path='/admin/dashboard' element={<AdminHome />} />
               <Route exact path='/admin/:admin_id/register/school' element={<SchoolRegisterForm />} />
               <Route exact path='/admin/:admin_id/register/college' element={<CollegeRegistrationForm/>} />
               <Route exact path='/admin/:admin_id/reports/school' element={<AdminSchoolReports />} />

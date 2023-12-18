@@ -23,7 +23,7 @@ const AdminLogin = () => {
 
     const onSubmitSuccess = jwtToken => {
         Cookies.set("jwt_token", jwtToken, { expires: 30 })
-        navigate("/admin")
+        navigate("/admin/dashboard")
     }
 
     const onSubmitFailure = errorMsg => {
@@ -64,7 +64,7 @@ const AdminLogin = () => {
     const renderAdminLoginDetails = () => {
         const jwtToken = Cookies.get("jwt_token")
         if (jwtToken !== undefined) {
-            return <Navigate replace to="/admin" />
+            return <Navigate replace to="/admin/dashboard" />
         }
         return (
             <div className='admin-login-form-container'>

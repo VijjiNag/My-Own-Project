@@ -6,8 +6,8 @@ import {
     IoIosArrowDroprightCircle,
 } from 'react-icons/io'
 import { IoSearchSharp } from "react-icons/io5";
-import AdminHeader from "../AdminHeader";
 import AdminUserQueryItem from "../AdminUserQueryItem";
+import AdminNavHeader from "../AdminNavHeader";
 import './index.css'
 
 const apiStatusConstants = {
@@ -98,19 +98,17 @@ class AdminUserQueryReports extends Component {
         return (
             <>
                 {isEmpty ? (
-                    <div className='no-data-found-container'>
+                    <div className='query-no-data-found-container'>
                         <img className='no-data-found-img' src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png" alt='no-data-found' />
                         <h1 className='no-data-found-head'>No Data Found</h1>
                         <p className='no-data-found-desc'>We could not find any user query data. Please try after sometime.</p>
                     </div>
                 ) : (
-                    <>
                         <ul className="user-query-list-container">
                             {currentItems.map((eachQuery, index) => (
                                 <AdminUserQueryItem userQuery={eachQuery} key={index} />
                             ))}
                         </ul>
-                    </>
                 )}
             </>
         )
@@ -177,8 +175,8 @@ class AdminUserQueryReports extends Component {
     }
 
     onChangePageSize = event => {
-        const {userQueryDetails} = this.state
-        this.setState({pageSige : parseInt(event.target.value), pageCount : Math.ceil(userQueryDetails.length / parseInt(event.target.value))}, this.getUserQueryDetails)
+        const { userQueryDetails } = this.state
+        this.setState({ pageSige: parseInt(event.target.value), pageCount: Math.ceil(userQueryDetails.length / parseInt(event.target.value)) }, this.getUserQueryDetails)
     }
 
     renderApiStatusView = () => {
@@ -208,14 +206,14 @@ class AdminUserQueryReports extends Component {
         //" is: " + Difference_In_Days + " days");
         //console.log(date1.toDateString())
         return (
-            <div>
-                <AdminHeader />
-                <div className="user-query-reports-container">
+            <div className="admin-user-query-reports-bg-container">
+                <AdminNavHeader />
+                <div className="user-query-reports-content-container">
                     <div className="query-reports-header-container">
                         <h1 className="user-query-reports-head">User Query Reports</h1>
                         <div className="query-search-container">
-                        <div className="page-drop-down-container">
-                                <label className="pages-label" htmlFor="pages">Pages</label>
+                            <div className="page-drop-down-container">
+                                <label className="pages-label" htmlFor="pages">No. of Lists</label>
                                 <select className="page-drop-down" id="pages" value={pageSige} onChange={this.onChangePageSize}>
                                     <option value={10}>10</option>
                                     <option value={20}>20</option>
@@ -239,21 +237,22 @@ class AdminUserQueryReports extends Component {
                         </div>
                         {this.renderApiStatusView()}
                     </div>
-                </div>
-                {isEmpty && (
-                    <div className="print-container">
-                        <div className="page-numbers-container">
-                            <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(0)} disabled={currentPage === 0}>First</button>
-                            <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(currentPage - 1)} disabled={currentPage === 0}>Prev</button>
-                            {Array(pageCount).fill(null).map((page, index) => (
-                                <button className={`${currentPage === index ? "active-btn" : "default-btn"}`} key={index} onClick={() => this.onPageChange(index)}>{index + 1}</button>
-                            ))}
-                            <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(currentPage + 1)} disabled={currentPage === pageCount - 1}>Next</button>
-                            <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(pageCount - 1)} disabled={currentPage === pageCount - 1}>Last</button>
+                    {isEmpty && (
+                        <div className="print-container">
+                            <div className="page-numbers-container">
+                                <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(0)} disabled={currentPage === 0}>First</button>
+                                <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(currentPage - 1)} disabled={currentPage === 0}>Prev</button>
+                                {Array(pageCount).fill(null).map((page, index) => (
+                                    <button className={`${currentPage === index ? "active-btn" : "default-btn"}`} key={index} onClick={() => this.onPageChange(index)}>{index + 1}</button>
+                                ))}
+                                <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(currentPage + 1)} disabled={currentPage === pageCount - 1}>Next</button>
+                                <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(pageCount - 1)} disabled={currentPage === pageCount - 1}>Last</button>
+                            </div>
+                            <button type="button" className="query-reports-print-btn" onClick={this.onClickPrintQueryReports}>Print</button>
                         </div>
-                        <button type="button" className="query-reports-print-btn" onClick={this.onClickPrintQueryReports}>Print</button>
-                    </div>
-                )}
+                    )}
+                </div>
+
             </div>
         )
     }

@@ -14,6 +14,10 @@
     padding-right: 100px;
 }
 
+#dropbtn-active {
+  color: #042AB4;
+}
+
 .nav-link {
     color: #000000;
     text-decoration: none;

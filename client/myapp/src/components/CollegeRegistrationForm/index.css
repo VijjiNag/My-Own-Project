@@ -1,6 +1,134 @@
-.college-reg-form-bg-container {
-    background-color: #ffffff;
+.admin-reg-college-bg-container {
+    background-color: rgb(15, 23, 42);
+    background-size: cover;
     height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+.admin-reg-college-content-container {
+    background-color: #ffffff;
+    padding-left: 15px;
+    background-size: cover;
+    height: 100vh;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    right: 0;
+    top: 0;
+    left: 15%;
+    position: absolute;
+}
+.college-reg-head {
+    font-family: sans-serif;
+    text-align: center;
+    color: #72024D;
+    font-weight: bold;
+}
+.college-register-bg-container {
+    background-color: #ffffff;
     background-size: cover;
     padding-top: 5%;
+}
+.college-reg-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+    background-size: cover;
+    align-items: center;
+}
+.college-reg-form-container {
+    display: flex;
+    flex-direction: column;
+}
+.college-reg-form-row-container {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+.college-reg-form-input-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+}
+.college-reg-label {
+    font-family: sans-serif;
+    margin-top: 30px;
+    font-weight: bold;
+    color: #013e66;
+    margin-bottom: 15px;
+}
+
+.college-reg-input {
+    font-family: sans-serif;
+    color: #17013E;
+    border-radius: 8px;
+    height: 45px;
+    width: 250px;
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 15px;
+    outline: none;
+    border-color: #013e66;
+    background-color: #D5EDF8;
+    font-size: 20px;
+}
+.college-register-btn {
+    background-color: #72024D;
+    color: #ffffff;
+    border-width: 0px;
+    height: 40px;
+    width: 130px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+}
+.college-reg-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.college-logo-img {
+    height: 70px;
+    width: 70px;
+}
+
+.college-logo-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.college-reg-input-file {
+    font-family: sans-serif;
+    color: #17013E;
+    border-radius: 8px;
+    height: 45px;
+    width: 100%;
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 15px;
+    outline: none;
+    border-color: #013e66;
+    background-color: #D5EDF8;
+    font-size: 20px;
+}
+.err-msg {
+    font-family: sans-serif;
+    color: #d90416;
+    font-weight: 700;
+}
+.error-msg-college-reg {
+    font-family: sans-serif;
+    color: #d90416;
+    font-weight: 700;
+    text-align: center;
+}
+
+.success-msg-college-reg {
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #2AB300;
+    text-align: center;
 }

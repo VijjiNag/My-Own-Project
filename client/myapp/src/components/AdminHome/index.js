@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import AdminHeader from "../AdminHeader";
+import AdminNavHeader from "../AdminNavHeader";
 import AdminContext from "../../context/AdminContext";
 import './index.css'
 
 const AdminHome = () => {
     return (
-        <>
-            <AdminHeader />
-            <div className="admin-home-bg-container">
-                <h1>Home</h1>
+        <div className="admin-home-bg-container">
+            <AdminNavHeader />
+            <div className="admin-home-content-container">
+                <h1>Dashboard</h1>
             </div>
-        </>
+        </div>
     )
 }
 

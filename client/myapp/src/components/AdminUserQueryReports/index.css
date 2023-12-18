@@ -1,16 +1,60 @@
-.user-query-reports-container {
+::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(15, 23, 42); 
+    border-radius: 10px;
+  }
+  
+.user-query-reports-content-container {
     background-color: #ffffff;
-    min-height: 100vh;
+    padding-left: 15px;
     background-size: cover;
-    padding-top: 5%;
+    min-height: 100vh;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    right: 0;
+    top: 0;
+    left: 15%;
+    position: absolute;
+}
+
+.query-no-data-found-container {
+    background-color: #ffffff;
+    height: 70vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.query-reports-header-container {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-user-query-reports-bg-container {
+    background-color: rgb(15, 23, 42);
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
 }
 
 .user-query-reports-head {
     font-family: sans-serif;
+    font-size: 25px;
     text-align: center;
     color: #72024D;
     font-weight: bold;
+    margin-bottom: 0px;
 }
+
 .print-container {
     display: flex;
     flex-direction: column;
@@ -30,6 +74,7 @@
     width: 35px;
     cursor: pointer;
 }
+
 .direction-btn {
     font-family: sans-serif;
     border-style: solid;
@@ -42,6 +87,7 @@
     width: 60px;
     cursor: pointer;
 }
+
 .direction-btn-cursor-not-allowed {
     font-family: sans-serif;
     border-style: solid;
@@ -52,11 +98,13 @@
     border-radius: 0px;
     height: 35px;
     width: 60px;
-    cursor:not-allowed;
+    cursor: not-allowed;
 }
+
 .active-color {
     color: #72024D;
 }
+
 .default-btn {
     font-family: sans-serif;
     border-style: solid;
@@ -77,6 +125,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .query-reports-print-btn {
     background-color: #72024D;
     font-family: sans-serif;
@@ -101,6 +150,7 @@
     font-size: 25px;
     color: #ffa412;
 }
+
 .query-search-container {
     display: flex;
     flex-direction: row;
@@ -108,15 +158,16 @@
     margin-right: 8%;
     margin-bottom: 25px;
 }
+
 .page-drop-down {
     font-family: sans-serif;
-    width: 100px;
-    height: 30px;
+    width: 80px;
+    height: 25px;
     border-radius: 0px;
     margin-left: 20px;
     outline: none;
-    padding: 5px;
 }
+
 .page-drop-down-container {
     display: flex;
     flex-direction: row;
@@ -124,28 +175,34 @@
     align-items: center;
     margin-left: 8%;
 }
+
 .pages-label {
     font-family: sans-serif;
+    font-size: 13px;
     font-weight: 700;
     color: #02024B;
 }
+
 .input-container {
     border-style: solid;
     border-width: 1px;
     background-color: #D5EDF8;
     padding: 10px;
-    width: 350px;
+    width: 250px;
+    height: 25px;
     border-radius: 8px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
+
 .query-search-icon {
     color: #01186C;
     font-size: 25px;
     cursor: pointer;
 }
+
 .query-search-input {
     width: 100%;
     background-color: #D5EDF8;
@@ -165,12 +222,15 @@
 }
 
 .user-query-list-container {
+    height: 59vh;
     display: flex;
     flex-direction: column;
     list-style-type: none;
     padding-left: 0px;
+    padding-right: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
+    overflow-y: auto;
 }
 
 .total-pages {
@@ -180,6 +240,7 @@
     margin-right: 10px;
     color: #72024D;
 }
+
 .user-query-retry-btn {
     font-family: sans-serif;
     font-size: 20px;
@@ -191,6 +252,7 @@
     width: 135px;
     background-color: #72024D;
 }
+
 .loader-container {
     display: flex;
     background-color: transparent;
@@ -199,20 +261,22 @@
     justify-content: center;
     align-items: center;
 }
+
 .user-query-table-head-container {
     display: flex;
     flex-direction: row;
     background-color: #72024D;
     padding-left: 20px;
     padding-right: 20px;
-    
+
 
 }
 
 .school-name {
-    width: 350px;
+    width: 250px;
     color: #ffffff;
     font-family: sans-serif;
+    font-size: 13px;
     font-weight: 700;
 }
 
@@ -220,6 +284,7 @@
     width: 250px;
     color: #ffffff;
     font-family: sans-serif;
+    font-size: 13px;
     font-weight: 700;
 }
 
@@ -227,6 +292,7 @@
     width: 250px;
     color: #ffffff;
     font-family: sans-serif;
+    font-size: 13px;
     font-weight: 700;
 }
 
@@ -234,13 +300,15 @@
     width: 200px;
     color: #ffffff;
     font-family: sans-serif;
+    font-size: 13px;
     font-weight: 700;
 }
 
 .address {
-    width: 200px;
+    width: 150px;
     color: #ffffff;
     font-family: sans-serif;
+    font-size: 13px;
     font-weight: 700;
 }
 
@@ -248,6 +316,7 @@
     width: 200px;
     color: #ffffff;
     font-family: sans-serif;
+    font-size: 13px;
     font-weight: 700;
 }
 
@@ -255,13 +324,29 @@
     .query-search-container * {
         display: none;
     }
+
+    .admin-user-query-reports-bg-container {
+        background-color: #ffffff;
+    }
+
     .print-container * {
         display: none;
     }
+
     .user-query-reports-table-container {
-        width: 107%;
+        width: 100%;
     }
+
     .user-query-reports-container {
         padding-top: 1%;
+    }
+
+    .user-query-list-container {
+        overflow-y: hidden;
+        height: auto;
+    }
+
+    .user-query-reports-content-container {
+        position: static;
     }
 }
