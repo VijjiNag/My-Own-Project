@@ -31,14 +31,27 @@ POST http://localhost:3009/admin_login/
 Content-Type: application/json
 
 {
-    "username" : "nagendra@02",
-    "password" : "nagendra@123"
+    "username" : "nagendra@01",
+    "password" : "nagendra@1234"
 }
 
 ###
 
 GET http://localhost:3009/admin/profile/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAxIiwiaWF0IjoxNzAxMjM3OTE0fQ.tGYrjTVc-TgKahnGQ3FnUE9-KyBa2rJzLYkvX5dAyC4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAxIiwiaWF0IjoxNzAyOTg1MzU0fQ.MDtXZz6M1q9CcTVXQOmlXG_Vvl0_5S5Xm2b9HuLr8dQ
+
+###
+
+PUT http://localhost:3009/admin/007dc5db-ab72-428b-8857-9621492b659f/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hZ2VuZHJhQDAxIiwiaWF0IjoxNzAyOTk0MzU5fQ.jXyZzZeKOX-oJolc9Qooy6UBrmXbcU3Bp7TfAwjeVcA
+
+{
+    "oldPassword" : "nagendra@1234",
+    "createNewPassword" : "nagendra@123",
+    "confirmChangePassword" : "nagendra@123"
+    
+}
 
 ###
 

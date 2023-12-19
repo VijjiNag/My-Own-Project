@@ -52,7 +52,7 @@ const AdminNavHeader = () => {
                 <div className="admin-header-logo-container">
                     <Link to="/admin/dashboard" className="admin-header-menu-link">
                         <img className="logo" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1700608338/logo_vsucfx.png" alt="logo" />
-                        <img className="logo site-name" src="https://res-console.cloudinary.com/dhfmjj1j9/thumbnails/v1/image/upload/v1702902197/c2Nob29sX3Bhc3MxX290YmJzZw==/grid_landscape" />
+                        <img className="logo site-name" src="https://res.cloudinary.com/dhfmjj1j9/image/upload/v1702902197/school_pass1_otbbsg.png" />
                     </Link>
                 </div>
                 <div className={homeActiveClass ? "admin-header-active-menu" : "admin-header-menu"}>

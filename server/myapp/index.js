@@ -41,12 +41,12 @@ const authenticateToken = (request, response, next) => {
   }
   if (jwtToken === undefined) {
     response.status(401);
-    response.send("Invalid JWT Token");
+    response.send({error_msg:"Invalid JWT Token"});
   } else {
     jwt.verify(jwtToken, "MY_SECRET_TOKEN", async (error, payload) => {
       if (error) {
         response.status(401);
-        response.send("Invalid JWT Token");
+        response.send({error_msg:"Invalid JWT Token"});
       } else {
         request.username = payload.username;
         next();
@@ -134,6 +134,40 @@ app.post("/admin/", async (request, response) => {
     response.send("User already exists");
   }
 });
+
+//Admin Change Password
+app.put("/admin/:adminId/", authenticateToken, async (request, response) => {
+  const {adminId} = request.params
+  const {oldPassword, createNewPassword, confirmChangePassword} = request.body
+  const hashedPassword = await bcrypt.hash(createNewPassword, 10);
+  const selectUserQuery = `SELECT * FROM admin WHERE id = '${adminId}'`;
+  const dbUser = await db.get(selectUserQuery)
+  const isPasswordMatched = await bcrypt.compare(oldPassword, dbUser.password);
+  if (isPasswordMatched === true) {
+    if (oldPassword === createNewPassword) {
+      response.status(400);
+      response.send({error_msg : "Old password and New password must not be same"});
+    } else {
+      if (createNewPassword === confirmChangePassword) {
+        const ChangePasswordQuery = `
+          UPDATE
+            admin
+          SET
+            password='${hashedPassword}'
+        WHERE
+          id='${adminId}';`;
+        await db.run(ChangePasswordQuery);
+        response.send({success_msg:"Password has changed successfully"})
+      } else {
+        response.status(400);
+        response.send({error_msg : "Password doesn't matched"});
+      }
+    }
+  } else {
+    response.status(400);
+    response.send({error_msg: "Invalid old password"});
+  }
+})
 
 //Admin Login
 
