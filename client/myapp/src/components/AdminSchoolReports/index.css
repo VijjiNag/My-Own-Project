@@ -1,5 +1,5 @@
 .school-no-data-found-container {
-    background-color: #ffffff;
+    background-color: rgb(241, 245, 249);
     height: 100vh;
     background-size: cover;
     display: flex;
@@ -16,16 +16,17 @@
     flex-direction: row;
 }
 .school-reports-content-container {
-    background-color: #ffffff;
+    background-color: rgb(241, 245, 249);
     padding-left: 15px;
     background-size: cover;
-    min-height: 100vh;
+    height: 100vh;
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
     right: 0;
     top: 0;
     left: 15%;
     position: absolute;
+    overflow-y: auto;
 }
 
 .no-data-found-head {

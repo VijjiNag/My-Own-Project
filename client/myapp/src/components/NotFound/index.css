@@ -1,0 +1,38 @@
+.login-not-found-bg-container {
+    background-color: rgb(15, 23, 42);
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+.login-not-found-content-container {
+    background-color: rgb(241, 245, 249);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15px;
+    background-size: cover;
+    height: 100vh;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    right: 0;
+    top: 0;
+    left: 15%;
+    position: absolute;
+}
+.login-page-not-found-image {
+    width: 500px;
+}
+.login-page-not-found-head {
+    font-family: sans-serif;
+    text-align: center;
+    color: #24013E;
+}
+.login-page-not-found-desc {
+    font-family: sans-serif;
+    text-align: center;
+    color: #64748b;
+    margin-top: 0px;
+    font-weight: 600;
+}

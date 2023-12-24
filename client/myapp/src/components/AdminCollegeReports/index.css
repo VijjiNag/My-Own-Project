@@ -1,5 +1,5 @@
 .college-no-data-found-container {
-    background-color: #ffffff;
+    background-color: rgb(241, 245, 249);
     height: 100vh;
     background-size: cover;
     display: flex;
@@ -15,7 +15,7 @@
     flex-direction: row;
 }
 .college-reports-content-container {
-    background-color: #ffffff;
+    background-color: rgb(241, 245, 249);
     padding-left: 15px;
     background-size: cover;
     min-height: 100vh;
@@ -29,7 +29,7 @@
 .no-data-found-head {
     font-family: sans-serif;
     color: #24013E;
-    margin-top: px;
+    margin-top: 10px;
     font-size: 25px;
 }
 .no-data-found-img {

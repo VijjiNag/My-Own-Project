@@ -22,7 +22,8 @@ const AdminSchoolReports = () => {
             if (response.ok) {
                 const data = await response.json()
                 const updatedData = data.schoolsList.map(eachList => ({
-                    schoolName: eachList.school_name
+                    schoolName: eachList.school_name,
+                    avatarUrl : eachList.avatar_url
                 }))
                 setSchools(() => updatedData)
             }
@@ -30,10 +31,12 @@ const AdminSchoolReports = () => {
         getSchoolDetails()
     }, [])
 
+
     return (
         <div className="school-reports-bg-container">
             <AdminNavHeader />
             <div className="school-reports-content-container">
+                {getSchools.map(each => (<img src={each.avatarUrl}/>))}
                 <div className='school-no-data-found-container'>
                     <img className='no-data-found-img' src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png" alt='no-data-found' />
                     <h1 className='no-data-found-head'>No Data Found</h1>

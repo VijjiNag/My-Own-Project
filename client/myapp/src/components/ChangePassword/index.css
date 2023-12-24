@@ -6,7 +6,7 @@
     flex-direction: row;
 }
 .admin-change-password-content-container {
-    background-color: #ffffff;
+    background-color: rgb(241, 245, 249);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,8 +24,8 @@
 
 .change-password-head {
     font-family: sans-serif;
-    background-color: #72024D;
-    color: #ffffff;
+    background-color: rgba(124, 58, 237, 0.16);
+    color: rgb(139, 92, 246);
     margin-top: 0px;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
@@ -34,36 +34,42 @@
 }
 
 .change-password-input-details-container {
-    background-color: #ffffff;
-    width: 40%;
+    background-color: rgb(15, 23, 42);
+    width: 50%;
     border-radius: 16px;
-    box-shadow: 0px 8px 40px rgba(7, 7, 7, 0.08);
+    box-shadow: 0px 8px 40px rgba(100, 100, 100, 0.7);
 }
 .change-password-form-container {
-    background-color: #ffffff;
+    background-color: rgb(15, 23, 42);
     display: flex;
     flex-direction: column;
+    border-radius: 16px;
     padding: 20px;
 }
 .change-password-label {
     font-family: sans-serif;
     margin-top: 0px;
     font-weight: bold;
-    color: #013e66;
+    color: rgb(148, 163, 184);
     margin-bottom: 15px;
 }
 .change-password-input {
     font-family: sans-serif;
-    color: #17013E;
+    color: rgb(139, 92, 246);
     height: 45px;
     border-radius: 8px;
     border-width: 0px;
     padding-left: 15px;
     outline: none;
     border-color: #013e66;
-    background-color: #D5EDF8;
+    background-color: rgba(124, 58, 237, 0.16);
     font-size: 20px;
     width: 100%;
+}
+.change-password-input::-webkit-input-placeholder {
+    color: rgb(139, 92, 246);
+    opacity: 0.5;
+    font-size: 17px;
 }
 .change-password-input-container {
     display: flex;
@@ -72,13 +78,13 @@
     border-radius: 8px;
     border-style: solid;
     border-width: 1px;
-    background-color: #D5EDF8;
+    background-color: rgba(124, 58, 237, 0.16);
     border-color: #013e66;
     margin-bottom: 30px;
     width: 100%;
 }
 .show-change-password-btn {
-    background-color: transparent;
+    background-color: rgba(124, 58, 237, 0.16);
     border-radius: 8px;
     border-width: 0px;
     cursor: pointer;
@@ -86,6 +92,7 @@
 }
 .show-change-password-icon {
     font-size: 20px;
+    color: rgb(139, 92, 246);
 }
 .change-password-btn-container {
     display: flex;
@@ -94,10 +101,10 @@
     align-items: center;
 }
 .change-password-btn {
-    background-color:#72024D;
+    background-color:rgba(124, 58, 237, 0.16);
     font-weight: 700;
     border-radius: 8px;
-    color: #ffffff;
+    color: rgb(139, 92, 246);
     height: 50px;
     width: 180px;
     border-width: 0px;

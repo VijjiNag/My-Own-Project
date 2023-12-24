@@ -9,7 +9,7 @@
     flex-direction: row;
 }
 .admin-home-content-container {
-    background-color: #ffffff;
+    background-color: rgb(241, 245, 249);
     padding-left: 15px;
     background-size: cover;
     min-height: 100vh;

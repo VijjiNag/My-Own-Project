@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
 import { RotatingLines } from 'react-loader-spinner';
-import {
-    IoIosArrowDropleftCircle,
-    IoIosArrowDroprightCircle,
-} from 'react-icons/io'
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft, MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { IoSearchSharp } from "react-icons/io5";
 import AdminUserQueryItem from "../AdminUserQueryItem";
 import AdminNavHeader from "../AdminNavHeader";
@@ -151,7 +148,7 @@ class AdminUserQueryReports extends Component {
 
     renderFailureView = () => {
         return (
-            <div className='no-data-found-container'>
+            <div className='user-query-no-data-found-container'>
                 <img className='no-data-found-img' src="https://assets.ccbp.in/frontend/react-js/failure-img.png" alt='no-data-found' />
                 <h1 className='no-data-found-head'>Oops! Something Went Wrong</h1>
                 <p className='no-data-found-desc'>We cannot seem to find the page you are looking for.</p>
@@ -240,13 +237,13 @@ class AdminUserQueryReports extends Component {
                     {isEmpty && (
                         <div className="print-container">
                             <div className="page-numbers-container">
-                                <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(0)} disabled={currentPage === 0}>First</button>
-                                <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(currentPage - 1)} disabled={currentPage === 0}>Prev</button>
+                                <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(0)} disabled={currentPage === 0}><MdKeyboardDoubleArrowLeft/></button>
+                                <button className={`${currentPage === 0 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== 0 && "active-color"}`} onClick={() => this.onPageChange(currentPage - 1)} disabled={currentPage === 0}><MdKeyboardArrowLeft/></button>
                                 {Array(pageCount).fill(null).map((page, index) => (
                                     <button className={`${currentPage === index ? "active-btn" : "default-btn"}`} key={index} onClick={() => this.onPageChange(index)}>{index + 1}</button>
                                 ))}
-                                <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(currentPage + 1)} disabled={currentPage === pageCount - 1}>Next</button>
-                                <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(pageCount - 1)} disabled={currentPage === pageCount - 1}>Last</button>
+                                <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(currentPage + 1)} disabled={currentPage === pageCount - 1}><MdKeyboardArrowRight /></button>
+                                <button className={`${currentPage === pageCount - 1 ? "direction-btn-cursor-not-allowed" : "direction-btn"} ${currentPage !== pageCount - 1 && "active-color"}`} onClick={() => this.onPageChange(pageCount - 1)} disabled={currentPage === pageCount - 1}><MdKeyboardDoubleArrowRight/></button>
                             </div>
                             <button type="button" className="query-reports-print-btn" onClick={this.onClickPrintQueryReports}>Print</button>
                         </div>

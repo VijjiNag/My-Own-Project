@@ -1,5 +1,5 @@
 import React, { Fragment, Component, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
 import Home from './components/Home'
 import SchoolRegisterForm from './components/SchoolRegisterForm'
@@ -13,6 +13,7 @@ import ChangePassword from './components/ChangePassword';
 import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedRouteForPublic from './components/ProtectedRouteForPublic';
 import CollegeRegistrationForm from './components/CollegeRegistrationForm';
+import NotFound from './components/NotFound';
 import GetStarted from './components/GetStarted';
 import AdminUserQueryReports from './components/AdminUserQueryReports';
 import './App.css';
@@ -39,6 +40,7 @@ const App = () => {
               <Route exact path='/admin/:admin_id/reports/college' element={<AdminCollegeReports />} />
               <Route exact path='/admin/:admin_id/reports/user_query' element={<AdminUserQueryReports />} />
               <Route exact path='/admin/:admin_id/change_password' element={<ChangePassword />} />
+              <Route path='*' element={<NotFound />}/>
             </Route>
           </Routes>
         </Fragment>

@@ -128,7 +128,7 @@
     width: 100%;
     border-radius: 16px;
     padding-left: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 3px;
    }
 .admin-header-menu-btn {
   background-color: transparent;
@@ -144,6 +144,7 @@
     width: 100%;
     border-radius: 16px;
     padding-left: 20px;
+    margin-bottom: 3px;
    }
 
 

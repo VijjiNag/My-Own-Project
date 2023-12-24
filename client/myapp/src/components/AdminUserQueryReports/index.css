@@ -2,20 +2,30 @@
     width: 5px;
   }
 
-  
-
   ::-webkit-scrollbar-thumb {
     background: rgb(15, 23, 42); 
     border-radius: 10px;
   }
+
+.user-query-no-data-found-container {
+    background-color: rgb(241, 245, 249);
+    height: 50vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
   
 .user-query-reports-content-container {
-    background-color: #ffffff;
+    background-color: rgb(241, 245, 249);
     padding-left: 15px;
     background-size: cover;
-    min-height: 100vh;
+    height: 100vh;
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
+    overflow-y: auto;
     right: 0;
     top: 0;
     left: 15%;
@@ -23,8 +33,8 @@
 }
 
 .query-no-data-found-container {
-    background-color: #ffffff;
-    height: 70vh;
+    background-color: rgb(241, 245, 249);
+    height: 50vh;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -33,7 +43,7 @@
 }
 
 .query-reports-header-container {
-    background-color: #ffffff;
+    background-color: rgb(241, 245, 249);
     display: flex;
     flex-direction: column;
 }
@@ -65,6 +75,7 @@
 
 .active-btn {
     font-family: sans-serif;
+    font-size: 16px;
     border-radius: 0px;
     font-weight: 700;
     border-width: 0px;
@@ -80,6 +91,7 @@
     border-style: solid;
     border-color: #D2D3D4;
     background-color: #D6EEEE;
+    font-size: 20px;
     font-weight: 700;
     border-width: 1px;
     border-radius: 0px;
@@ -93,6 +105,7 @@
     border-style: solid;
     border-color: #D2D3D4;
     background-color: #D6EEEE;
+    font-size: 20px;
     font-weight: 700;
     border-width: 1px;
     border-radius: 0px;
@@ -107,6 +120,7 @@
 
 .default-btn {
     font-family: sans-serif;
+    font-size: 16px;
     border-style: solid;
     border-color: #D2D3D4;
     font-weight: 700;
@@ -161,6 +175,7 @@
 
 .page-drop-down {
     font-family: sans-serif;
+    background-color: rgb(241, 245, 249);
     width: 80px;
     height: 25px;
     border-radius: 0px;
@@ -222,7 +237,6 @@
 }
 
 .user-query-list-container {
-    height: 59vh;
     display: flex;
     flex-direction: column;
     list-style-type: none;
@@ -230,7 +244,6 @@
     padding-right: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
-    overflow-y: auto;
 }
 
 .total-pages {
@@ -256,7 +269,7 @@
 .loader-container {
     display: flex;
     background-color: transparent;
-    height: 100vh;
+    height: 50vh;
     flex-direction: row;
     justify-content: center;
     align-items: center;
