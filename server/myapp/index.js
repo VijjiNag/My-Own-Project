@@ -6,6 +6,7 @@ const sqlite3 = require("sqlite3");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require('uuid')
+const multer = require("multer")
 const cors = require('cors');
 
 const app = express();

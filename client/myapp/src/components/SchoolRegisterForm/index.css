@@ -40,6 +40,19 @@
     display: flex;
     flex-direction: column;
 }
+.upload-btn {
+    font-family: sans-serif;
+    border-width: 0px;
+    background-color: rgb(15, 23, 42);
+    width: 150px;
+    color: rgb(139, 92, 246);
+    font-weight: 700;
+    height: 35px;
+    border-radius: 8px;
+    margin-top: 50px;
+    cursor: pointer;
+
+}
 .school-reg-form-row-container {
     display: flex;
     flex-direction: row;
@@ -79,6 +92,7 @@
     background-color: #72024D;
     color: #ffffff;
     border-width: 0px;
+    margin-top: 30px;
     height: 40px;
     width: 130px;
     border-radius: 8px;

@@ -22,14 +22,17 @@ const SchoolRegisterForm = () => {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [avatarUrl, setAvatarUrl] = useState("")
+    const [imagePreview, setImagePreview] = useState(null)
     const [errMsgPassword, setErrMsgPassword] = useState("")
     const [showSubmitSuccess, setShowSubmitSuccess] = useState(false)
     const [showSubmitError, setShowSubmitError] = useState(false)
     const [successMsg, setSuccessMsg] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
-    const [emptySchoolDetails, setEmptySchoolDetails] = useState({schoolName : "", correspondentName : "", email : "", contactNumber : "",
-    street : "", villageOrTown : "", city : "", district : "", stateName : "", pinCode : "", enrollForDays : "", validUpToDate : "", password : "",
-    confirmPassword : "", avatarUrl : ""})
+    const [emptySchoolDetails, setEmptySchoolDetails] = useState({
+        schoolName: "", correspondentName: "", email: "", contactNumber: "",
+        street: "", villageOrTown: "", city: "", district: "", stateName: "", pinCode: "", enrollForDays: "", validUpToDate: "", password: "",
+        confirmPassword: "", avatarUrl: ""
+    })
 
     const validDate = validUpToDate.slice(8, 10)
     const validMonth = validUpToDate.slice(5, 7)
@@ -93,8 +96,27 @@ const SchoolRegisterForm = () => {
     }
 
     const onChangeAvatarUrl = event => {
-        const url = URL.createObjectURL(event.target.files[0]);
-        setAvatarUrl(() => url)
+        setAvatarUrl(() => event.target.files[0])
+        setImagePreview(() => URL.createObjectURL(event.target.files[0]))
+    }
+
+    const onUploadImage = async () => {
+            if (avatarUrl && (avatarUrl.type === "image/png" || avatarUrl.type === "image/jpg" || avatarUrl.type === "image/jpeg")) {
+                const image = new FormData()
+                image.append("file", avatarUrl)
+                image.append("clound_name", "dhfmjj1j9")
+                image.append("upload_preset", "abcdabcdabcd")
+                const apiUrl = "https://api.cloudinary.com/v1_1/dhfmjj1j9/image/upload"
+                const options = {
+                    method: "post",
+                    body: image
+                }
+                const response = await fetch(apiUrl, options)
+                const imageData = await response.json()
+                console.log(imageData)
+                setAvatarUrl(() => imageData.url.toString())
+                setImagePreview(() => null)
+            }
     }
 
     const onSubmitSuccess = successMsg => {
@@ -111,7 +133,8 @@ const SchoolRegisterForm = () => {
 
     const onSubmitSchoolRegisterForm = async event => {
         event.preventDefault()
-        setEmptySchoolDetails({schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpToDate, password, confirmPassword, avatarUrl})
+        console.log(avatarUrl)
+        setEmptySchoolDetails({ schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpToDate, password, confirmPassword, avatarUrl })
         setSchoolName("")
         setCorrespondentName("")
         setEmail("")
@@ -225,9 +248,14 @@ const SchoolRegisterForm = () => {
                             <div className='school-reg-form-input-container'>
                                 <label className='school-reg-label' htmlFor='school-logo'>Upload Logo</label>
                                 <div className='school-logo-container'>
-                                    <input id='school-logo' type='file' placeholder='LOGO' onChange={onChangeAvatarUrl} />
-                                    <img className='school-logo-img' src={avatarUrl} alt='school-logo' />
+                                    <input id='school-logo' type='file' accept='image/png, image/jpeg' name='image' placeholder='LOGO' onChange={onChangeAvatarUrl} />
+                                    {imagePreview && (<img className='school-logo-img' src={imagePreview && imagePreview} alt='school-logo' />)}
                                 </div>
+                            </div>
+                        </div>
+                        <div className='school-reg-form-row-container'>
+                            <div className='school-reg-form-input-container'>
+                                <button type='button' className='upload-btn' onClick={onUploadImage}>Upload</button>
                             </div>
                         </div>
                     </div>
