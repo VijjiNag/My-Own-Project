@@ -43,14 +43,27 @@
 .upload-btn {
     font-family: sans-serif;
     border-width: 0px;
-    background-color: rgb(15, 23, 42);
+    background-color: #72024D;
     width: 150px;
-    color: rgb(139, 92, 246);
+    color: #ffffff;
     font-weight: 700;
     height: 35px;
     border-radius: 8px;
     margin-top: 50px;
     cursor: pointer;
+
+}
+.upload-btn-not-allowed {
+    font-family: sans-serif;
+    border-width: 0px;
+    background-color: #7D466A;
+    width: 150px;
+    color: #ffffff;
+    font-weight: 700;
+    height: 35px;
+    border-radius: 8px;
+    margin-top: 50px;
+    cursor: not-allowed;
 
 }
 .school-reg-form-row-container {
@@ -96,10 +109,23 @@
     height: 40px;
     width: 130px;
     border-radius: 8px;
-    cursor: pointer;
     font-family: sans-serif;
     font-weight: 700;
     font-size: 20px;
+    cursor: pointer;
+}
+.school-register-btn-not-allowed {
+    background-color: #7D466A;
+    color: #ffffff;
+    border-width: 0px;
+    margin-top: 30px;
+    height: 40px;
+    width: 130px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: not-allowed;
 }
 .school-reg-btn-container {
     display: flex;

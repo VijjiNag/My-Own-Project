@@ -17,6 +17,32 @@
     left: 15%;
     position: absolute;
 }
+.upload-btn {
+    font-family: sans-serif;
+    border-width: 0px;
+    background-color: #72024D;
+    width: 150px;
+    color: #ffffff;
+    font-weight: 700;
+    height: 35px;
+    border-radius: 8px;
+    margin-top: 50px;
+    cursor: pointer;
+
+}
+.upload-btn-not-allowed {
+    font-family: sans-serif;
+    border-width: 0px;
+    background-color: #7D466A;
+    width: 150px;
+    color: #ffffff;
+    font-weight: 700;
+    height: 35px;
+    border-radius: 8px;
+    margin-top: 50px;
+    cursor: not-allowed;
+
+}
 .college-reg-head {
     font-family: sans-serif;
     text-align: center;

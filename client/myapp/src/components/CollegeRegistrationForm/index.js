@@ -1,12 +1,35 @@
 import React, {useState} from 'react';
 import { useParams } from 'react-router-dom';
+import { ColorRing } from 'react-loader-spinner';
 import AdminNavHeader from '../AdminNavHeader'
 import './index.css'
+
+const apiStatusUploadConstants = {
+    initial: 'INITIAL',
+    success: 'SUCCESS',
+    failure: 'FAILURE',
+    inProgress: 'IN_PROGRESS',
+}
+
+const apiStatusRegisterConstants = {
+    initial: 'INITIAL',
+    success: 'SUCCESS',
+    failure: 'FAILURE',
+    inProgress: 'IN_PROGRESS',
+}
 
 const CollegeRegistrationForm = () => {
     const params = useParams()
     const adminId = params.admin_id
     const [collegeName, setCollegeName] = useState("")
+    const [imagePreview, setImagePreview] = useState(null)
+    const [showErrorMsgPassword, setShowErrorMsgPassword] = useState(false)
+    const [showEmptyImgError, setShowEmptyImgError] = useState(false)
+    const [showImgUploadSucces, setshowImgUploadSucces] = useState(false)
+    const [emptyImgError, setEmptyImgError] = useState("")
+    const [imgUploadSuccess, setimgUploadSuccess] = useState("")
+    const [apiStatusUpload, setApiStatusUpload] = useState(apiStatusUploadConstants.initial)
+    const [apiStatusRegister, setApiStatusRegister] = useState(apiStatusRegisterConstants.initial)
     const [correspondentName, setCorrespondentName] = useState("")
     const [email, setEmail] = useState("")
     const [contactNumber, setContactNumber] = useState("")
@@ -92,11 +115,45 @@ const CollegeRegistrationForm = () => {
     }
 
     const onChangeAvatarUrl = event => {
-        const url = URL.createObjectURL(event.target.files[0]);
-        setAvatarUrl(() => url)
+        setAvatarUrl(() => event.target.files[0])
+        setImagePreview(() => URL.createObjectURL(event.target.files[0]))
     }
     const onSubmitCollegeRegisterForm = async (event) => {
         event.preventDefault()
+    }
+
+    const onUploadImage = async () => {
+        setApiStatusUpload(() => apiStatusUploadConstants.inProgress)
+        if (avatarUrl && (avatarUrl.type === "image/png" || avatarUrl.type === "image/jpg" || avatarUrl.type === "image/jpeg")) {
+            const image = new FormData()
+            image.append("file", avatarUrl)
+            image.append("clound_name", "dhfmjj1j9")
+            image.append("upload_preset", "abcdabcdabcd")
+            const apiUrl = "https://api.cloudinary.com/v1_1/dhfmjj1j9/image/upload"
+            const options = {
+                method: "post",
+                body: image
+            }
+            const response = await fetch(apiUrl, options)
+            const imageData = await response.json()
+            if (response.ok) {
+                setAvatarUrl(() => imageData.url.toString())
+                setImagePreview(() => null)
+                setimgUploadSuccess(() => "Image uploaded successfully")
+                setEmptyImgError(() => false)
+                setApiStatusUpload(() => apiStatusUploadConstants.success)
+                setshowImgUploadSucces(() => true)
+
+            } else {
+                setEmptyImgError(() => "Image upload failed")
+                setApiStatusUpload(() => apiStatusUploadConstants.failure)
+            }
+        } else {
+            setEmptyImgError(() => "Select a valid image")
+            setApiStatusUpload(() => apiStatusUploadConstants.failure)
+            setShowEmptyImgError(() => true)
+            setshowImgUploadSucces(() => false)
+        }
     }
     const renderCollegeRegistrationForm = () => {
         const isPasswordMatched = password !== confirmPassword
@@ -172,8 +229,15 @@ const CollegeRegistrationForm = () => {
                                 <label className='college-reg-label' htmlFor='college-logo'>Upload Logo</label>
                                 <div className='college-logo-container'>
                                     <input id='college-logo' type='file' placeholder='LOGO' onChange={onChangeAvatarUrl} />
-                                    <img className='college-logo-img' src={avatarUrl} alt='college-logo' />
+                                    {imagePreview && (<img className='college-logo-img' src={imagePreview && imagePreview} alt='college-logo' />)}
                                 </div>
+                            </div>
+                        </div>
+                        <div className='college-reg-form-row-container'>
+                            <div className='college-reg-form-input-container'>
+                                <button type='button' className={`${apiStatusUpload === apiStatusUploadConstants.inProgress ? 'upload-btn-not-allowed' : 'upload-btn'}`} onClick={onUploadImage}>{apiStatusUpload === apiStatusUploadConstants.inProgress ? (renderLoadingView()) : "Upload"}</button>
+                                {showImgUploadSucces && <p className='success-msg-college-reg'>{imgUploadSuccess}</p>}
+                                {showEmptyImgError && <p className='error-msg-college-reg'>{emptyImgError}</p>}
                             </div>
                         </div>
                     </div>
@@ -184,6 +248,19 @@ const CollegeRegistrationForm = () => {
                     {showSubmitError && <p className='error-msg-college-reg'>{errorMsg}</p>}
                 </form>
             </div>
+        )
+    }
+    const renderLoadingView = () => {
+        return (
+            <ColorRing
+                visible={true}
+                height="30"
+                width="30"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={['#BFBDBE', '#BFBDBE', '#BFBDBE', '#BFBDBE', '#BFBDBE']}
+            />
         )
     }
     return (

@@ -1,13 +1,35 @@
 import React, { Component, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useParams } from 'react-router-dom';
+import { ColorRing } from 'react-loader-spinner';
 import AdminNavHeader from '../AdminNavHeader';
 import './index.css'
+
+const apiStatusUploadConstants = {
+    initial: 'INITIAL',
+    success: 'SUCCESS',
+    failure: 'FAILURE',
+    inProgress: 'IN_PROGRESS',
+}
+
+const apiStatusRegisterConstants = {
+    initial: 'INITIAL',
+    success: 'SUCCESS',
+    failure: 'FAILURE',
+    inProgress: 'IN_PROGRESS',
+}
 
 const SchoolRegisterForm = () => {
     const params = useParams()
     const adminId = params.admin_id
     const [schoolName, setSchoolName] = useState("")
+    const [apiStatusUpload, setApiStatusUpload] = useState(apiStatusUploadConstants.initial)
+    const [apiStatusRegister, setApiStatusRegister] = useState(apiStatusRegisterConstants.initial)
+    const [emptyImgError, setEmptyImgError] = useState("")
+    const [showEmptyImgError, setShowEmptyImgError] = useState(false)
+    const [showImgUploadSucces, setshowImgUploadSucces] = useState(false)
+    const [imgUploadSuccess, setimgUploadSuccess] = useState("")
+    const [showErrorMsgPassword, setShowErrorMsgPassword] = useState(false)
     const [correspondentName, setCorrespondentName] = useState("")
     const [email, setEmail] = useState("")
     const [contactNumber, setContactNumber] = useState("")
@@ -101,22 +123,37 @@ const SchoolRegisterForm = () => {
     }
 
     const onUploadImage = async () => {
-            if (avatarUrl && (avatarUrl.type === "image/png" || avatarUrl.type === "image/jpg" || avatarUrl.type === "image/jpeg")) {
-                const image = new FormData()
-                image.append("file", avatarUrl)
-                image.append("clound_name", "dhfmjj1j9")
-                image.append("upload_preset", "abcdabcdabcd")
-                const apiUrl = "https://api.cloudinary.com/v1_1/dhfmjj1j9/image/upload"
-                const options = {
-                    method: "post",
-                    body: image
-                }
-                const response = await fetch(apiUrl, options)
-                const imageData = await response.json()
-                console.log(imageData)
+        setApiStatusUpload(() => apiStatusUploadConstants.inProgress)
+        if (avatarUrl && (avatarUrl.type === "image/png" || avatarUrl.type === "image/jpg" || avatarUrl.type === "image/jpeg")) {
+            const image = new FormData()
+            image.append("file", avatarUrl)
+            image.append("clound_name", "dhfmjj1j9")
+            image.append("upload_preset", "abcdabcdabcd")
+            const apiUrl = "https://api.cloudinary.com/v1_1/dhfmjj1j9/image/upload"
+            const options = {
+                method: "post",
+                body: image
+            }
+            const response = await fetch(apiUrl, options)
+            const imageData = await response.json()
+            if (response.ok) {
                 setAvatarUrl(() => imageData.url.toString())
                 setImagePreview(() => null)
+                setimgUploadSuccess(() => "Image uploaded successfully")
+                setEmptyImgError(() => false)
+                setApiStatusUpload(() => apiStatusUploadConstants.success)
+                setshowImgUploadSucces(() => true)
+
+            } else {
+                setEmptyImgError(() => "Image upload failed")
+                setApiStatusUpload(() => apiStatusUploadConstants.failure)
             }
+        } else {
+            setEmptyImgError(() => "Select a valid image")
+            setApiStatusUpload(() => apiStatusUploadConstants.failure)
+            setShowEmptyImgError(() => true)
+            setshowImgUploadSucces(() => false)
+        }
     }
 
     const onSubmitSuccess = successMsg => {
@@ -133,7 +170,7 @@ const SchoolRegisterForm = () => {
 
     const onSubmitSchoolRegisterForm = async event => {
         event.preventDefault()
-        console.log(avatarUrl)
+        setApiStatusRegister(() => apiStatusRegisterConstants.inProgress)
         setEmptySchoolDetails({ schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpToDate, password, confirmPassword, avatarUrl })
         setSchoolName("")
         setCorrespondentName("")
@@ -167,16 +204,20 @@ const SchoolRegisterForm = () => {
             const data = await response.json()
             if (response.ok) {
                 onSubmitSuccess(data.success_msg)
+                setshowImgUploadSucces(() => false)
+                setApiStatusRegister(() => apiStatusRegisterConstants.success)
             } else {
                 onSubmitFailure(data.error_msg)
+                setShowEmptyImgError(() => false)
+                setApiStatusRegister(() => apiStatusRegisterConstants.failure)
             }
         } else {
+            setShowErrorMsgPassword(() => true)
             setErrMsgPassword(() => "Password doesn't matched")
         }
     }
 
     const renderSchoolRegistrationForm = () => {
-        const isPasswordMatched = password !== confirmPassword
         return (
             <div className='school-reg-container'>
                 <form className='school-reg-form-container' onSubmit={onSubmitSchoolRegisterForm}>
@@ -242,7 +283,7 @@ const SchoolRegisterForm = () => {
                         <div className='school-reg-form-input-container'>
                             <label className='school-reg-label' htmlFor='school-confirm-password'>Confirm Password</label>
                             <input value={confirmPassword} className='school-reg-input' id='school-confirm-password' type='password' placeholder='CONFIRM PASSWORD' onChange={onChangeConfirmPassword} required />
-                            {isPasswordMatched && <p className='err-msg'>{errMsgPassword}</p>}
+                            {showErrorMsgPassword && <p className='err-msg'>{errMsgPassword}</p>}
                         </div>
                         <div className='school-reg-form-row-container'>
                             <div className='school-reg-form-input-container'>
@@ -255,17 +296,46 @@ const SchoolRegisterForm = () => {
                         </div>
                         <div className='school-reg-form-row-container'>
                             <div className='school-reg-form-input-container'>
-                                <button type='button' className='upload-btn' onClick={onUploadImage}>Upload</button>
+                                <button type='button' className={`${apiStatusUpload === apiStatusUploadConstants.inProgress ? 'upload-btn-not-allowed' : 'upload-btn'}`} onClick={onUploadImage} disabled={apiStatusUpload === apiStatusUploadConstants.inProgress}>{apiStatusUpload === apiStatusUploadConstants.inProgress ? (renderLoadingView()) : "Upload"}</button>
+                                {showImgUploadSucces && <p className='success-msg-school-reg'>{imgUploadSuccess}</p>}
+                                {showEmptyImgError && <p className='error-msg-school-reg'>{emptyImgError}</p>}
                             </div>
                         </div>
                     </div>
                     <div className='school-reg-btn-container'>
-                        <button className='school-register-btn' type='submit'>Register</button>
+                        <button className={`${apiStatusRegister === apiStatusRegisterConstants.inProgress ? 'school-register-btn-not-allowed' : 'school-register-btn'}`} type='submit' disabled={apiStatusRegister === apiStatusRegisterConstants.inProgress}>{apiStatusRegister === apiStatusRegisterConstants.inProgress ? (renderLoadingView()) : "Register"}</button>
                     </div>
                     {showSubmitSuccess && <p className='success-msg-school-reg'>{successMsg}</p>}
                     {showSubmitError && <p className='error-msg-school-reg'>{errorMsg}</p>}
                 </form>
             </div>
+        )
+    }
+
+    const renderLoadingView = () => {
+        return (
+            <ColorRing
+                visible={true}
+                height="30"
+                width="30"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={['#BFBDBE', '#BFBDBE', '#BFBDBE', '#BFBDBE', '#BFBDBE']}
+            />
+        )
+    }
+    const renderRigisterLoadingView = () => {
+        return (
+            <ColorRing
+                visible={true}
+                height="30"
+                width="30"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={['#72024D', '#72024D', '#72024D', '#72024D', '#72024D']}
+            />
         )
     }
     return (
