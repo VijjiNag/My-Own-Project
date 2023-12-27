@@ -247,12 +247,63 @@ app.post("/schools/", authenticateToken, async (request, response) => {
        '${adminId}'
       );`;
     await db.run(createSchoolQuery);
-    response.send({success_msg : "School Registered successfully"});
+    response.send({success_msg : "School registered successfully"});
   } else {
     response.status(400);
     response.send({error_msg : "School already exists"});
   }
 })
+
+// Register College
+app.post("/colleges/", authenticateToken, async (request, response) => {
+  const collegeDetails = request.body
+  const { collegeName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpTo, password, avatarUrl, adminId } = collegeDetails
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const datetime = new Date();
+  const newDate = ("0" + datetime.getDate()).slice(-2);
+  const newMonth = ("0" + (datetime.getMonth() + 1)).slice(-2)
+  const newYear = datetime.getFullYear()
+  const registeredDate = newDate + "-" + newMonth + "-" + newYear
+  const id = uuidv4()
+  const selectUserQuery = `
+    SELECT 
+      * 
+    FROM 
+      college 
+    WHERE 
+      email = '${email}';`;
+  const dbUser = await db.get(selectUserQuery);
+  if (dbUser === undefined) {
+    const createCollegeQuery = `
+     INSERT INTO
+      college (id, college_name, correspondent_name, email, contact_number, street, village_or_town, city, district, state_name, pin_code, enroll_for_days, valid_up_to, password, avatar_url, registered_date, admin_id)
+     VALUES
+      ('${id}',
+        '${collegeName}',
+        '${correspondentName}',
+       '${email}',
+       ${contactNumber},
+       '${street}',
+       '${villageOrTown}',
+       '${city}',
+       '${district}',
+       '${stateName}',
+       ${pinCode},
+       ${enrollForDays},
+       '${validUpTo}',
+       '${hashedPassword}',
+       '${avatarUrl}',
+       '${registeredDate}',
+       '${adminId}'
+      );`;
+    await db.run(createCollegeQuery);
+    response.send({success_msg : "College registered successfully"});
+  } else {
+    response.status(400);
+    response.send({error_msg : "College already exists"});
+  }
+})
+
 
 //Get School Details
 

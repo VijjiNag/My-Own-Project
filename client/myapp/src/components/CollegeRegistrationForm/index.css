@@ -17,7 +17,7 @@
     left: 15%;
     position: absolute;
 }
-.upload-btn {
+.upload-btn-college {
     font-family: sans-serif;
     border-width: 0px;
     background-color: #72024D;
@@ -30,10 +30,10 @@
     cursor: pointer;
 
 }
-.upload-btn-not-allowed {
+.upload-btn-college-not-allowed {
     font-family: sans-serif;
     border-width: 0px;
-    background-color: #7D466A;
+    background-color: #A7A6A6;
     width: 150px;
     color: #ffffff;
     font-weight: 700;
@@ -112,6 +112,20 @@
     font-family: sans-serif;
     font-weight: 700;
     font-size: 20px;
+    margin-top: 30px;
+}
+.college-register-btn-not-allowed {
+    background-color: #A7A6A6;
+    color: #ffffff;
+    border-width: 0px;
+    height: 40px;
+    width: 130px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 30px;
+    cursor: not-allowed;
 }
 .college-reg-btn-container {
     display: flex;

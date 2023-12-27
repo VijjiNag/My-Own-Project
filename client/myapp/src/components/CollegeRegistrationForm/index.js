@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import { ColorRing } from 'react-loader-spinner';
 import AdminNavHeader from '../AdminNavHeader'
 import './index.css'
@@ -49,57 +50,97 @@ const CollegeRegistrationForm = () => {
     const [showSubmitError, setShowSubmitError] = useState(false)
     const [successMsg, setSuccessMsg] = useState("")
     const [errorMsg, setErrorMsg] = useState("")
-    const [emptyCollegeDetails, setEmptyCollegeDetails] = useState({collegeName : "", correspondentName : "", email : "", contactNumber : "",
-    street : "", villageOrTown : "", city : "", district : "", stateName : "", pinCode : "", enrollForDays : "", validUpToDate : "", password : "",
-    confirmPassword : "", avatarUrl : ""})
+    const [emptyCollegeDetails, setEmptyCollegeDetails] = useState({
+        collegeName: "", correspondentName: "", email: "", contactNumber: "",
+        street: "", villageOrTown: "", city: "", district: "", stateName: "", pinCode: "", enrollForDays: "", validUpToDate: "", password: "",
+        confirmPassword: "", avatarUrl: ""
+    })
 
     const validDate = validUpToDate.slice(8, 10)
     const validMonth = validUpToDate.slice(5, 7)
     const validYear = validUpToDate.slice(0, 4)
     const validUpTo = validDate + "-" + validMonth + "-" + validYear
 
+    const datetime = new Date();
+    const newDate = ("0" + datetime.getDate()).slice(-2);
+    const newMonth = ("0" + (datetime.getMonth() + 1)).slice(-2)
+    const newYear = datetime.getFullYear()
+    const today = newYear + "-" + newMonth + "-" + newDate
+
     const onChangeCollegeName = event => {
-        setCollegeName(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);
+        }
+        setCollegeName(() => splitName.join(' '))
     }
 
     const onChangeCorrespondentName = event => {
-        setCorrespondentName(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);
+        }
+        setCorrespondentName(() => splitName.join(' '))
     }
 
     const onChangeEmail = event => {
-        setEmail(() => event.target.value)
+        let splitName = event.target.value.replace(/[^a-z0-9@_.-]/g, "")
+        setEmail(() => splitName)
     }
 
     const onChangeContactNumber = event => {
-        setContactNumber(() => event.target.value)
+        let splitNumber = event.target.value.replace(/[^0-9]/g, "")
+        setContactNumber(() => splitNumber)
     }
 
     const onChangeStreet = event => {
-        setStreet(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z0-9-/, ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);
+        }
+        setStreet(() => splitName.join(' '))
     }
 
     const onChangeVillageOrTown = event => {
-        setVillageOrTown(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ,]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);
+        }
+        setVillageOrTown(() => splitName.join(' '))
     }
 
     const onChangeCity = event => {
-        setCity(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);
+        }
+        setCity(() => splitName.join(' '))
     }
 
     const onChangeDistrict = event => {
-        setDistrict(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);
+        }
+        setDistrict(() => splitName.join(' '))
     }
 
     const onChangeState = event => {
-        setStateName(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);
+        }
+        setStateName(() => splitName.join(' '))
     }
 
     const onChangePinCode = event => {
-        setPinCode(() => event.target.value)
+        let splitNumber = event.target.value.replace(/[^0-9]/g, "")
+        setPinCode(() => splitNumber)
     }
 
     const onChangeEnrollForDays = event => {
-        setEnrollForDays(() => event.target.value)
+        let splitNumber = event.target.value.replace(/[^0-9]/g, "")
+        setEnrollForDays(() => splitNumber)
     }
 
     const onChangeValidUpTo = event => {
@@ -107,11 +148,13 @@ const CollegeRegistrationForm = () => {
     }
 
     const onChangeCreatePassword = event => {
-        setPassword(() => event.target.value)
+        let splitName = event.target.value.replace(/[^a-zA-Z0-9@_]/g, "").replaceAll(' ', '')
+        setPassword(() => splitName)
     }
 
     const onChangeConfirmPassword = event => {
-        setConfirmPassword(() => event.target.value)
+        let splitName = event.target.value.replace(/[^a-zA-Z0-9@_]/g, "").replaceAll(' ', '')
+        setConfirmPassword(() => splitName)
     }
 
     const onChangeAvatarUrl = event => {
@@ -120,6 +163,56 @@ const CollegeRegistrationForm = () => {
     }
     const onSubmitCollegeRegisterForm = async (event) => {
         event.preventDefault()
+        setApiStatusRegister(() => apiStatusRegisterConstants.inProgress)
+        const jwtToken = Cookies.get("jwt_token")
+        const collegeDetails = { collegeName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpTo, password, avatarUrl, adminId }
+        const url = "http://localhost:3009/colleges"
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                Authorization: `Bearer ${jwtToken}`
+            },
+            method: 'POST',
+            body: JSON.stringify(collegeDetails),
+        }
+        if (password === confirmPassword) {
+            setShowErrorMsgPassword(() => false)
+            const response = await fetch(url, options)
+            const data = await response.json()
+            if (response.ok) {
+                onSubmitSuccess(data.success_msg)
+                setshowImgUploadSucces(() => false)
+                setShowErrorMsgPassword(() => false)
+                setApiStatusRegister(() => apiStatusRegisterConstants.success)
+
+                setEmptyCollegeDetails({ collegeName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpToDate, password, confirmPassword, avatarUrl })
+                setCollegeName("")
+                setCorrespondentName("")
+                setEmail("")
+                setContactNumber("")
+                setStreet("")
+                setVillageOrTown("")
+                setCity("")
+                setDistrict("")
+                setStateName("")
+                setPinCode("")
+                setEnrollForDays("")
+                setValidUpTo("")
+                setPassword("")
+                setConfirmPassword("")
+                setAvatarUrl("")
+
+            } else {
+                onSubmitFailure(data.error_msg)
+                setShowEmptyImgError(() => false)
+                setApiStatusRegister(() => apiStatusRegisterConstants.failure)
+            }
+        } else {
+            setShowErrorMsgPassword(() => true)
+            setErrMsgPassword(() => "Password doesn't matched")
+            setApiStatusRegister(() => apiStatusRegisterConstants.failure)
+        }
     }
 
     const onUploadImage = async () => {
@@ -155,8 +248,20 @@ const CollegeRegistrationForm = () => {
             setshowImgUploadSucces(() => false)
         }
     }
+
+    const onSubmitSuccess = successMsg => {
+        setShowSubmitSuccess(() => true)
+        setShowSubmitError(() => false)
+        setSuccessMsg(() => successMsg)
+    }
+
+    const onSubmitFailure = errorMsg => {
+        setShowSubmitError(() => true)
+        setShowSubmitSuccess(() => false)
+        setErrorMsg(() => errorMsg)
+    }
+
     const renderCollegeRegistrationForm = () => {
-        const isPasswordMatched = password !== confirmPassword
         return (
             <div className='college-reg-container'>
                 <form className='college-reg-form-container' onSubmit={onSubmitCollegeRegisterForm}>
@@ -175,7 +280,7 @@ const CollegeRegistrationForm = () => {
                         </div>
                         <div className='college-reg-form-input-container'>
                             <label className='college-reg-label' htmlFor='college-contact-number'>Contact Number</label>
-                            <input value={contactNumber} className='college-reg-input' id='college-contact-number' type='tel' placeholder='CONTACT NUMBER' onChange={onChangeContactNumber} pattern='[0-9]{10}' required />
+                            <input value={contactNumber} className='college-reg-input' id='college-contact-number' type='tel' placeholder='CONTACT NUMBER' onChange={onChangeContactNumber} pattern='[0-9]{10}' maxLength="10" required />
                         </div>
                     </div>
                     <div className='college-reg-form-row-container'>
@@ -203,7 +308,7 @@ const CollegeRegistrationForm = () => {
                         </div>
                         <div className='college-reg-form-input-container'>
                             <label className='college-reg-label' htmlFor='college-pin-code'>Pin Code</label>
-                            <input value={pinCode} className='college-reg-input' id='college-pin-code' type='tel' placeholder='PIN CODE' onChange={onChangePinCode} pattern='[0-9]{6}' required />
+                            <input value={pinCode} className='college-reg-input' id='college-pin-code' type='tel' placeholder='PIN CODE' onChange={onChangePinCode} pattern='[0-9]{6}' maxLength="6" required />
                         </div>
                         <div className='college-reg-form-input-container'>
                             <label className='college-reg-label' htmlFor='college-enroll'>Enroll For (in days) </label>
@@ -211,7 +316,7 @@ const CollegeRegistrationForm = () => {
                         </div>
                         <div className='college-reg-form-input-container'>
                             <label className='college-reg-label' htmlFor='college-valid-upto'>Valid upto</label>
-                            <input value={validUpToDate} className='college-reg-input' id='college-valid-upto' type='date' placeholder='VALID UPTO' onChange={onChangeValidUpTo} required />
+                            <input value={validUpToDate} className='college-reg-input' id='college-valid-upto' type='date' min={today} placeholder='VALID UPTO' onChange={onChangeValidUpTo} required />
                         </div>
                     </div>
                     <div className='college-reg-form-row-container'>
@@ -222,7 +327,7 @@ const CollegeRegistrationForm = () => {
                         <div className='college-reg-form-input-container'>
                             <label className='college-reg-label' htmlFor='college-confirm-password'>Confirm Password</label>
                             <input value={confirmPassword} className='college-reg-input' id='college-confirm-password' type='password' placeholder='CONFIRM PASSWORD' onChange={onChangeConfirmPassword} required />
-                            {isPasswordMatched && <p className='err-msg'>{errMsgPassword}</p>}
+                            {showErrorMsgPassword && <p className='err-msg'>{errMsgPassword}</p>}
                         </div>
                         <div className='college-reg-form-row-container'>
                             <div className='college-reg-form-input-container'>
@@ -235,14 +340,14 @@ const CollegeRegistrationForm = () => {
                         </div>
                         <div className='college-reg-form-row-container'>
                             <div className='college-reg-form-input-container'>
-                                <button type='button' className={`${apiStatusUpload === apiStatusUploadConstants.inProgress ? 'upload-btn-not-allowed' : 'upload-btn'}`} onClick={onUploadImage}>{apiStatusUpload === apiStatusUploadConstants.inProgress ? (renderLoadingView()) : "Upload"}</button>
+                                <button type='button' className={`${apiStatusUpload === apiStatusUploadConstants.inProgress ? 'upload-btn-college-not-allowed' : 'upload-btn-college'}`} onClick={onUploadImage}>{apiStatusUpload === apiStatusUploadConstants.inProgress ? (renderLoadingView()) : "Upload"}</button>
                                 {showImgUploadSucces && <p className='success-msg-college-reg'>{imgUploadSuccess}</p>}
                                 {showEmptyImgError && <p className='error-msg-college-reg'>{emptyImgError}</p>}
                             </div>
                         </div>
                     </div>
                     <div className='college-reg-btn-container'>
-                        <button className='college-register-btn' type='submit'>Register</button>
+                        <button className={apiStatusRegister === apiStatusRegisterConstants.inProgress ? 'college-register-btn-not-allowed' : 'college-register-btn'} type='submit'>{apiStatusRegister === apiStatusRegisterConstants.inProgress ? (renderLoadingView()) : "Register"}</button>
                     </div>
                     {showSubmitSuccess && <p className='success-msg-college-reg'>{successMsg}</p>}
                     {showSubmitError && <p className='error-msg-college-reg'>{errorMsg}</p>}
@@ -250,6 +355,7 @@ const CollegeRegistrationForm = () => {
             </div>
         )
     }
+
     const renderLoadingView = () => {
         return (
             <ColorRing
@@ -259,7 +365,7 @@ const CollegeRegistrationForm = () => {
                 ariaLabel="color-ring-loading"
                 wrapperStyle={{}}
                 wrapperClass="color-ring-wrapper"
-                colors={['#BFBDBE', '#BFBDBE', '#BFBDBE', '#BFBDBE', '#BFBDBE']}
+                colors={['#D4D3D3', '#D4D3D3', '#D4D3D3', '#D4D3D3', '#D4D3D3']}
             />
         )
     }

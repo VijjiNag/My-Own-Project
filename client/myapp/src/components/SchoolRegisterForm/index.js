@@ -61,48 +61,86 @@ const SchoolRegisterForm = () => {
     const validYear = validUpToDate.slice(0, 4)
     const validUpTo = validDate + "-" + validMonth + "-" + validYear
 
+    const datetime = new Date();
+    const newDate = ("0" + datetime.getDate()).slice(-2);
+    const newMonth = ("0" + (datetime.getMonth() + 1)).slice(-2)
+    const newYear = datetime.getFullYear()
+    const today = newYear + "-" + newMonth + "-" + newDate
+
     const onChangeSchoolName = event => {
-        setSchoolName(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+        }
+        setSchoolName(() => splitName.join(' '))
     }
 
     const onChangeCorrespondentName = event => {
-        setCorrespondentName(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+        }
+        setCorrespondentName(() => splitName.join(' '))
     }
 
     const onChangeEmail = event => {
-        setEmail(() => event.target.value)
+        let splitName = event.target.value.replace(/[^a-z0-9@_.-]/g, "")
+        setEmail(() => splitName)
     }
 
     const onChangeContactNumber = event => {
-        setContactNumber(() => event.target.value)
+        let splitNumber = event.target.value.replace(/[^0-9]/g, "")
+        setContactNumber(() => splitNumber)
     }
 
     const onChangeStreet = event => {
-        setStreet(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z0-9-/, ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);
+        }
+        setStreet(() => splitName.join(' '))
     }
 
     const onChangeVillageOrTown = event => {
-        setVillageOrTown(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ,]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+        }
+        setVillageOrTown(() => splitName.join(' '))
     }
 
     const onChangeCity = event => {
-        setCity(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+        }
+        setCity(() => splitName.join(' '))
     }
 
     const onChangeDistrict = event => {
-        setDistrict(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+        }
+        setDistrict(() => splitName.join(' '))
     }
 
     const onChangeState = event => {
-        setStateName(() => event.target.value.toUpperCase())
+        let splitName = event.target.value.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ')
+        for (var i = 0; i < splitName.length; i++) {
+            splitName[i] = splitName[i].charAt(0).toUpperCase() + splitName[i].substring(1);     
+        }
+        setStateName(() => splitName.join(' '))
     }
 
     const onChangePinCode = event => {
-        setPinCode(() => event.target.value)
+        let splitNumber = event.target.value.replace(/[^0-9]/g, "")
+        setPinCode(() => splitNumber)
     }
 
     const onChangeEnrollForDays = event => {
-        setEnrollForDays(() => event.target.value)
+        let splitNumber = event.target.value.replace(/[^0-9]/g, "")
+        setEnrollForDays(() => splitNumber)
     }
 
     const onChangeValidUpTo = event => {
@@ -110,11 +148,13 @@ const SchoolRegisterForm = () => {
     }
 
     const onChangeCreatePassword = event => {
-        setPassword(() => event.target.value)
+        let splitName = event.target.value.replace(/[^a-zA-Z0-9@_]/g, "").replaceAll(' ','')
+        setPassword(() => splitName)
     }
 
     const onChangeConfirmPassword = event => {
-        setConfirmPassword(() => event.target.value)
+        let splitName = event.target.value.replace(/[^a-zA-Z0-9@_]/g, "").replaceAll(' ','')
+        setConfirmPassword(() => splitName)
     }
 
     const onChangeAvatarUrl = event => {
@@ -171,22 +211,6 @@ const SchoolRegisterForm = () => {
     const onSubmitSchoolRegisterForm = async event => {
         event.preventDefault()
         setApiStatusRegister(() => apiStatusRegisterConstants.inProgress)
-        setEmptySchoolDetails({ schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpToDate, password, confirmPassword, avatarUrl })
-        setSchoolName("")
-        setCorrespondentName("")
-        setEmail("")
-        setContactNumber("")
-        setStreet("")
-        setVillageOrTown("")
-        setCity("")
-        setDistrict("")
-        setStateName("")
-        setPinCode("")
-        setEnrollForDays("")
-        setValidUpTo("")
-        setPassword("")
-        setConfirmPassword("")
-        setAvatarUrl("")
         const jwtToken = Cookies.get("jwt_token")
         const schoolDetails = { schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpTo, password, avatarUrl, adminId }
         const url = "http://localhost:3009/schools"
@@ -205,7 +229,25 @@ const SchoolRegisterForm = () => {
             if (response.ok) {
                 onSubmitSuccess(data.success_msg)
                 setshowImgUploadSucces(() => false)
+                setShowErrorMsgPassword(() => false)
                 setApiStatusRegister(() => apiStatusRegisterConstants.success)
+
+                setEmptySchoolDetails({ schoolName, correspondentName, email, contactNumber, street, villageOrTown, city, district, stateName, pinCode, enrollForDays, validUpToDate, password, confirmPassword, avatarUrl })
+                setSchoolName("")
+                setCorrespondentName("")
+                setEmail("")
+                setContactNumber("")
+                setStreet("")
+                setVillageOrTown("")
+                setCity("")
+                setDistrict("")
+                setStateName("")
+                setPinCode("")
+                setEnrollForDays("")
+                setValidUpTo("")
+                setPassword("")
+                setConfirmPassword("")
+                setAvatarUrl("")
             } else {
                 onSubmitFailure(data.error_msg)
                 setShowEmptyImgError(() => false)
@@ -214,6 +256,7 @@ const SchoolRegisterForm = () => {
         } else {
             setShowErrorMsgPassword(() => true)
             setErrMsgPassword(() => "Password doesn't matched")
+            setApiStatusRegister(() => apiStatusRegisterConstants.failure)
         }
     }
 
@@ -236,7 +279,7 @@ const SchoolRegisterForm = () => {
                         </div>
                         <div className='school-reg-form-input-container'>
                             <label className='school-reg-label' htmlFor='school-contact-number'>Contact Number</label>
-                            <input value={contactNumber} className='school-reg-input' id='school-contact-number' type='tel' placeholder='CONTACT NUMBER' onChange={onChangeContactNumber} pattern='[0-9]{10}' required />
+                            <input value={contactNumber} className='school-reg-input' id='school-contact-number' type='tel' maxLength='10' placeholder='CONTACT NUMBER' onChange={onChangeContactNumber} pattern='[0-9]{10}' required />
                         </div>
                     </div>
                     <div className='school-reg-form-row-container'>
@@ -264,7 +307,7 @@ const SchoolRegisterForm = () => {
                         </div>
                         <div className='school-reg-form-input-container'>
                             <label className='school-reg-label' htmlFor='school-pin-code'>Pin Code</label>
-                            <input value={pinCode} className='school-reg-input' id='school-pin-code' type='tel' placeholder='PIN CODE' onChange={onChangePinCode} pattern='[0-9]{6}' required />
+                            <input value={pinCode} className='school-reg-input' id='school-pin-code' type='tel' maxLength='6' placeholder='PIN CODE' onChange={onChangePinCode} pattern='[0-9]{6}' required />
                         </div>
                         <div className='school-reg-form-input-container'>
                             <label className='school-reg-label' htmlFor='school-enroll'>Enroll For (in days) </label>
@@ -272,7 +315,7 @@ const SchoolRegisterForm = () => {
                         </div>
                         <div className='school-reg-form-input-container'>
                             <label className='school-reg-label' htmlFor='school-valid-upto'>Valid upto</label>
-                            <input value={validUpToDate} className='school-reg-input' id='school-valid-upto' type='date' placeholder='VALID UPTO' onChange={onChangeValidUpTo} required />
+                            <input value={validUpToDate} className='school-reg-input' id='school-valid-upto' type='date' min={today} placeholder='VALID UPTO' onChange={onChangeValidUpTo} required />
                         </div>
                     </div>
                     <div className='school-reg-form-row-container'>
@@ -321,23 +364,11 @@ const SchoolRegisterForm = () => {
                 ariaLabel="color-ring-loading"
                 wrapperStyle={{}}
                 wrapperClass="color-ring-wrapper"
-                colors={['#BFBDBE', '#BFBDBE', '#BFBDBE', '#BFBDBE', '#BFBDBE']}
+                colors={['#D4D3D3', '#D4D3D3', '#D4D3D3', '#D4D3D3', '#D4D3D3']}
             />
         )
     }
-    const renderRigisterLoadingView = () => {
-        return (
-            <ColorRing
-                visible={true}
-                height="30"
-                width="30"
-                ariaLabel="color-ring-loading"
-                wrapperStyle={{}}
-                wrapperClass="color-ring-wrapper"
-                colors={['#72024D', '#72024D', '#72024D', '#72024D', '#72024D']}
-            />
-        )
-    }
+
     return (
         <div className='admin-reg-school-bg-container'>
             <AdminNavHeader />
